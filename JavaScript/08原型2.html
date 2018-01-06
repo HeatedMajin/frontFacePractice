@@ -1,0 +1,91 @@
+<html>
+	<head>
+		<title>用字面量原型</title>
+	</head>
+<body></body>
+<script type="text/javascript">
+////////////////////////////字面量方式创建原型//////////////////////////////
+function Box(){}
+Box.prototype = {
+	name:"Lee",
+	age:100,
+	run:function(){
+		return this.name+this.age+" is running ...";
+	}
+}
+var b = new Box();
+//console.log(b);
+//console.log(b.run());
+
+
+
+
+///////////////////////////带来的问题/////////////////////////////////////////
+//console.log(b.run)
+console.log(b.constructor==Box)
+
+function Box2(name,age){
+	this.name = name;
+	this.age = age;
+	this.run = function(){
+		return this.name+this.age+" is running...";
+	}
+}
+var b2 = new Box2("ma",12);
+//console.log(b2);
+//console.log(b2.run);
+console.log(b2.constructor == Box2)
+
+//两个构造函数，一个是Object，一个是Box2
+//如何让第一个的构造函数也是Box
+function Box3(){}
+Box3.prototype = {
+	constructor:Box3,
+	name:"Lee",
+	age:100,
+	run:function(){
+		return this.name+this.age+" is running ...";
+	}
+}
+var b3 = new Box3();
+console.log(b3)
+//console.log(b3.constructor)
+console.log(b3.constructor == Box3)
+
+	
+	
+//////////////////////////////字面量原型的截断//////////////////////////////
+function Tox(){}
+Tox.prototype={
+	name:"ma",
+	age:20,
+	run:function(){
+		return this.name+this.age+" is running...";
+	}
+}
+var t = new Tox();
+console.log(t.run());
+Tox.prototype.name="asd";
+console.log(t.run());
+
+//////////////////////////自定义原型扩展//////////////////////////////////
+console.log(Tox.prototype.run());
+console.log(Tox.prototype);		//查看Tox原型中所有的属性
+
+
+//因为所有的数组对象均可以.method
+//那么，这些方法一定是他们原型中的方法
+console.log(String.prototype);
+
+//扩展Array原型的属性
+
+//首先确定是没有没有定义过的
+console.log(String.prototype.add == undefined);
+
+//添加addString()方法
+String.prototype.addString = function(){
+	return this+"asd";
+}
+console.log("asd".addString());
+</script>
+</html>

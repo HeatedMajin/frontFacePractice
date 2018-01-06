@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<title>视频弹出框</title>
+
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<style type="text/css">
+    /*global css*/
+	.content{width:1349px;height: 764px;background: url(images/img12.jpg);margin: 0 auto;}
+	
+	/*word control*/
+    .content .controls{z-index: 2;color: white;font-size: 20px;}
+	
+	 /*cover*/
+    .content #cover{background:#000;opacity: 0.7;display: none;z-index:1;position: absolute;}
+
+	 /*video title*/
+	.video_top{position: absolute;left:0px;top:0px;opacity: 0.4;background:#000;}
+	.video_top #title{font-size:24px;color:#CCC;padding:8px 10px 8px 15px;border-radius:12px;
+		line-height:30px;letter-spacing:1px;width:810px;} 
+
+    /*video*/
+	.content .video{width: 0px;height: 0px;border:6px solid #111;box-shadow: 0px 0px 27px #EEE;border-radius: 12px; 
+		display: none; position: absolute;z-index: 2;background: #000;position: relative;}
+    .content video{border-radius: 16px;margin: auto auto;display: block;}
+
+
+    /*control buttons*/
+	#controls_group {height:36px;width:824px;left:6px;top:441px;position: absolute;margin:0 auto;
+		opacity: 0.6;background:#000;padding:2px;}
+	#controls_group .control{width: 32px;height:32px;background-image: url(images/icon.png);border-radius: 16px; 
+		cursor: pointer;margin:2px;opacity:0.5;}
+	#controls_group .control:hover{opacity:0.9;}
+
+	#prev{background-position: -350px -230px;float:left;}
+	#play{background-position:-187px -139px;float:left;}
+    #pause{background-position: -350px -139px;float:left;display: none;}
+	#next{background-position: -185px -230px;float:left;}
+	#volume{background-position:-512px -230px;float:right;}
+    #controls_group #fullscreen{background-image:url(images/fullscreen.png);background-position: -17px -14px;float:right;}
+
+	/*progress Bar*/
+	#controls_group  #progress{height:22px;width:632px;float:left;margin-left:6px;margin-top:6px;color:#CCC;
+		background:#222;padding-top:6px;}
+	#controls_group  #progress #bar{height:6px;width:470px;margin:6px 7px;float:left;background:#CCC;
+		border-radius:3px;}
+	#controls_group  #progress #currentTime{float:left;margin-left:8px;}
+	#controls_group  #progress #totalTime{float:right;margin-right:8px;}
+	
+	/*listBtn*/
+	.content #video #listBtn{width:16px;height:67px;background:url(images/list.png);position:absolute;left:824px;top:211px;
+		cursor:pointer;z-index:4;opacity: 0.5;}
+	.content #video #listBtn:hover{opacity: 0.8;}
+	
+	/*list*/
+	.content #video #list{background:#111;position:absolute;left:847px;top:-5px;display:none;width:200px;height:472px;
+		color:#EEE;padding:10px ;border-radius:12px;line-height:30px;letter-spacing:1px;box-shadow: 0px 0px 20px #EEE;
+		opacity:0.90;}
+	.content #video #list .line{background:#000;height:2px;}
+	.content #video #list h3{font-size:18px;}
+	.content #video #list li a:hover{color:yellow;}
+	.content #video #list li:hover{background:#333;border-radius:15px;}
+
+</style>
+</head>
+<body>
+    	<div class="content">
+            <!-- controls start -->
+            <div class="controls">
+    		  <a href="#" id="open_video">打开视频</a>
+    		  <a href="#" id="close_video">关闭视频</a>
+            </div>
+            <!-- end controls -->
+
+            <!-- video start -->
+			<div class="video" id="video">
+				<div class="video_top">
+					<p id="title">刚刚好 -- 薛之谦</p>
+				</div>
+				<video id="player" width="800px" height="490px" src="videos/1.mp4" onclick="clickStartPause();">
+					您的播放器暂不支持播放</video>
+
+				<!-- list start-->
+				<div id="listBtn" onclick="listBtnClick();"></div>
+				<div id="list">
+					<ul>
+						<li><h3>目录</h3></li>
+						<li><div class="line"></div></li>
+						<li>&nbsp;&gt;&nbsp;<a href="#" onclick="changeVideo(0);">刚刚好 --薛之谦</a></li>
+						<li><div class="line"></div></li>
+						<li>&nbsp;&gt;&nbsp;<a href="#" onclick="changeVideo(1);">你还要我怎样 --薛之谦</a></li>
+						<li><div class="line"></div></li>
+						<li>&nbsp;&gt;&nbsp;<a href="#" onclick="changeVideo(2);">喜羊羊与灰他娘 --第二集</a></li>
+						<li><div class="line"></div></li>
+					</ul>
+				</div>
+				<!--end list-->
+
+				<!-- controls_group start -->
+                <div id="controls_group">					
+					<div id="prev" class="control" onclick="$(function(){index=(2+index)%3;changeVideo(index);})"></div>
+					<div id="play" class="control" onclick="clickStartPause();"></div>   
+					<div id="next" class="control" onclick="$(function(){index=(1+index)%3;changeVideo(index);})"></div>
+					<div id="progress" class="control">
+						<p id="currentTime">00:00:00</p>
+						<div id="bar"></div>
+						<p id="totalTime">59:59:59</p>
+					</div>
+					<div id="fullscreen" class="control"></div>
+					<div id="volume" class="control"></div> 
+                </div>
+				<!-- end controls_group-->
+			</div>
+            <!-- end video -->
+			
+            <!--cover start-->
+            <div id="cover"></div>
+            <!-- end cover -->
+    	</div>
+
+		<!-- 引入JQ -->
+    	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+    	<script type="text/javascript">
+			/*暂停和播放*/
+            var video = document.getElementById("player");
+            var played =false;
+            function clickStartPause(){
+                if(!played){
+                    video.play();
+					document.getElementById("play").style.backgroundPosition="-350px -139px";
+                }else{
+                    video.pause();
+					document.getElementById("play").style.backgroundPosition="-187px -139px";
+                }
+                played=!played;
+            }
+			
+			/*切换播放文件*/
+			var list=["videos/1.mp4","videos/2.mp4","videos/3.mp4"];
+			var index = 0;         
+			function changeVideo(tar){
+				index=tar;
+				document.getElementById("player").src=list[index];
+				document.getElementById("title").innerText=document.getElementById("list").getElementsByTagName("a")[index].innerText;
+				played=false;
+				document.getElementById("play").style.backgroundPosition="-187px -139px";
+			}
+
+			/*播放列表打开、关闭*/
+			var listed= false;
+			function listBtnClick(){
+				var lleft = ( $(window).width() - 1000 ) / 2;
+				var top = ( $(window).height() - 480 ) / 2;
+				if(!listed){
+					$("#list").show();
+				}else{
+					$("#list").hide();
+					lleft = ( $(window).width() - 800 ) / 2;	
+				}
+				$("#video").show().animate({
+    					width:"840px",
+    					height:"480px",
+    					left:"+"+lleft+"px",
+    					top:"+"+top+"px"
+   				},400);
+				listed = !listed;
+			}
+            /*打开视频、关闭视频*/
+    		$(function () {
+				/*打开视频*/
+    			$("#open_video").click(function(){
+					/*打开遮罩*/
+					$("#cover").show().animate({
+                        left:"0px",
+                        top:"30px",
+                        width: "1349px",
+                        height: "734px"
+                    },600);
+					/*video居中显示*/
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").show().animate({
+    					width:"840px",
+    					height:"480px",
+    					left:"+"+left+"px",
+    					top:"+"+top+"px"
+    				},700);
+    			});
+				/*关闭视频*/
+    			$("#close_video,#cover").click(function(){
+					/*关闭遮罩*/
+                    $("#cover").animate({
+                        left:"-0px",
+                        top:"30px",
+                        width: "0px",
+                        height: "0px"
+                    },700,function(){
+                        $(this).hide();
+                    });
+                
+					/*video居中显示*/
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").animate({
+    					width:"0px",
+    					height:"0px",
+    					left:"-"+0+"px",
+    					top:"+"+30+"px"
+    				},600,function(){
+                        $(this).hide();
+                        if(played){
+                            clickStartPause();
+                        }
+                    });
+    			});
+    		})
+    	</script>
+</body>
+</html>

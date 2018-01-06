@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body{
+			width:100%;height:100%;
+			font-size:14px;
+			font-family:"微软雅黑";
+			color:#444;
+			background:rgba(100,220,120,.1);
+		}
+	</style>
+</head>
+<body>
+	<pre>
+	var arr=[1,'23',false,null];//声明数组
+	console.log(typeof arr);//属于对象类型
+	console.log(arr);
+	for (var i = 0; i < arr.length; i++) {
+	 	console.log(arr[i]);
+	 };
+
+
+	var obj={name:"aaa",age:20};//声明具有两个属性的对象。但个人感觉像字典。	
+	 for(var i in obj){
+	 	console.log(i+"-"+obj[i]);
+	 }
+	</pre>
+</body>
+<script>
+	var arr=[1,'23',false,null];
+	console.log(typeof arr);
+	console.log(arr);
+	var obj={name:"aaa",age:20};
+	 
+	 for (var i = 0; i < arr.length; i++) {
+	 	console.log(arr[i]);
+	 };
+
+	 for(var i in obj){
+	 	//console.log(i+"-"+obj.i);
+	 	console.log(i+"-"+obj[i]);
+	 }
+
+</script>
+</html>

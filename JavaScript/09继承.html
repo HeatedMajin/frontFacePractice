@@ -1,0 +1,69 @@
+<!DOCTYPE html?
+<html>
+	<head>
+		<title></title>
+	</head>
+<body>
+	<script>
+////////////////////////////////////使用原型继承///////////////////////////////////////////////////////
+///////////无参构造////////////
+function Box(){
+	this.name = "asda";
+}
+function Desk(){
+	this.age = 12;
+}
+Desk.prototype = new Box();
+var desk = new Desk();
+console.log(desk.name);
+
+
+///////////有参构造//////////
+function Animal(name,age){
+	this.name = name;
+	this.age = age;
+}
+function Dog(name,age,lan){
+	this.lan = lan;
+//	Dog.prototype = new Animal(name,age);	//error
+	this.__proto__ = new Animal(name,age);
+	this.say = function(){
+		return this.name+this.age+" is saying "+this.lan;
+	}
+}
+var dog = new Dog("小黑",13,"wang~wang~");
+//console.log(dog);
+console.log(dog.name);
+console.log(dog.say());
+
+////////////////////////////////////对象冒充继承////////////////////////////////////////////////////////
+function Plants(name){
+	this.name = name;
+	this.blur = function(){
+		return this.name+" is blurring";
+	}
+}
+function Peanut(name){	
+	Plants.call(this,name);	//对象冒充实现继承,只能继承构造方法
+}
+var peanut = new Peanut("小花生");
+console.log(peanut.name);
+
+/////////////////////////////////////组合继承/////////////////////////////////////////////////////
+function Vehicle(name){
+	this.name = name;
+}
+Vehicle.prototype.run = function(){
+	return this.name+" di~di~di~ ";
+}
+function Car(name){
+	Vehicle.call(this,name);//对象冒充，只能继承构造方法
+}
+Car.prototype= new Vehicle();
+
+var car = new Car("兰博");
+console.log(car.name);
+console.log(car.run());
+	</script>
+</body>
+</html>

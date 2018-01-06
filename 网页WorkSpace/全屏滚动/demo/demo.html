@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!--声明当前页面的编码格式 国际编码 UTF-8 中文编码 GBK-->
+    <meta charset="UTF-8">
+    <!--声明当前页面的三要素-->
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <title>css3全屏滚动特效</title>
+	<link rel="stylesheet" href="css/jquery.fullPage.css">
+	<link rel="stylesheet" href="css/demo.css">
+	<script src="js/jquery-1.8.3.min.js"></script>
+	<script src="js/jquery.fullPage.min.js"></script>
+	<script>
+		$(function(){
+			$.fn.fullpage({
+				slidesColor : ["rgb(254, 218, 137)","rgb(222, 79, 80)","rgb(144, 74, 104)","rgb(104, 195, 159)"],
+				navigation:true,
+				css3:true,
+				afterLoad:function(anchorLink,index){
+					if (index==2)
+					{
+						$(".nail").css("animation-play-state","running");
+						$(".cloud").css("animation-play-state","running");
+					}
+					if (index==3)
+					{
+						$(".shop").css("animation-play-state","running");
+						$(".fun").css("animation-play-state","running");
+					}
+					if (index==4)
+					{
+						$(".phone").css("animation-play-state","running");
+						$(".gift").css("animation-play-state","running");
+						$(".ballon").css("animation-play-state","running");
+					}
+				}
+			});
+		})
+	</script>
+</head>
+<body>
+	<div class="section">
+		<div class="box1">
+			<img src="images/cl.png">
+			<img src="images/ph1.png">
+			<img src="images/wheel-1.png" class="wheel">
+			<img src="images/wheel-2.png" class="wheel">
+			<img src="images/wheel-3.png">
+			<img src="images/wheel-4.png" class="wheel">
+		</div>
+	</div>
+	<div class="section">
+		<div class="box2">
+			<img src="images/map.png">
+			<img src="images/nail.png" class="nail">
+			<img src="images/cloud.png" class="cloud">
+		</div>
+	</div>
+	<div class="section">
+		<div class="box3">
+			<img src="images/v-phone.png">
+			<img src="images/shop.png" class="shop">
+			<img src="images/fun.png" class="fun">
+		</div>
+	</div>
+	<div class="section">
+		<div class="box4">
+			<img src="images/phone_1.png" class="phone">
+			<img src="images/phone_2.png">
+			<img src="images/gift_1.png" class="gift">
+			<img src="images/gift_2.png">
+			<img src="images/ballon.png" class="ballon">
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>3.元素添加删除</title>
+</head>
+<body>
+    <ul>
+        <li>append</li>
+        <li>insert</li>
+        <li>remove</li>
+    </ul>
+    <div class="content">
+        <p id="p2">2</p>
+        <p>3</p>
+        <p id="p4">4</p>
+        <p id="p5">5</p>
+    </div>
+
+
+    <!-- 引入D3 -->
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript">
+
+        //父子：在p2前面添加1
+        d3.select(".content").insert("p","#p2").text("1").style("color","red");
+        
+        //兄弟：在div内容最后面加上6
+        d3.select(".content").append("p","#p6").text("6").style("color","red");
+
+        //把5移除
+        d3.select(".content").select("#p5").remove();
+
+    </script>
+</body>
+</html>

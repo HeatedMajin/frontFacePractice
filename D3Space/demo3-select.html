@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>3.使用id和class选择标签</title>
+</head>
+<body>
+    <div class="content">
+        <p></p>
+        <p id="p1"></p>
+        <p></p>
+        <p class="p2"></p>
+    </div>
+
+
+    <!-- 引入D3 -->
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript">
+        d3.select("#p1").text("这是id=p1的标签");
+        d3.select(".p2").text("这是class=p2的标签");
+    </script>
+</body>
+</html>

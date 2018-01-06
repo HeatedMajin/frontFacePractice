@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>10.动画</title>
+    
+</head>
+<body>
+    <!-- 引入D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+    <script type="text/javascript">
+        var svg = d3.select("body").append("svg")
+            .attr("width",700)
+            .attr("height",700);
+
+        //第一个圆 改变x坐标
+        var circle1 = svg.append("circle")
+            .attr("cx",100)
+            .attr("cy",50)
+            .attr("r",40)
+            .attr("fill","steelblue");
+
+        //定义动画
+        circle1.transition()
+            .duration(1000)
+            .attr("cx",300);
+
+
+        //第二个圆改变 y坐标 样式
+        var circle2 = svg.append("circle")
+            .attr("cx",100)
+            .attr("cy",110)
+            .attr("r",40)
+            .attr("fill","steelblue");
+
+        //定义动画
+        circle2.transition()
+            .duration(1000)
+            .attr("cy",300)
+            .style("fill","red");
+    </script>
+</body>
+</html>

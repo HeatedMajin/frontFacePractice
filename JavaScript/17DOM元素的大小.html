@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="关键词，关键字">
+	<meta name="Description" content="描述信息">
+	<title>title</title>
+
+    
+	<!-- customize style -->
+	<style type="text/css">
+		.content{width:10px;height:100px;border:10px solid green;padding:10px;margin:10px;}
+        #test2{width:100px;height:100px;background:yellow;overflow:scroll;}
+	</style>
+    <link rel="stylesheet" href="css/1.css"/>
+</head>
+<body>
+	<div id="test" class="content" style="width:600px;font-size:20px;float:left;">
+	</div>
+	<div id="test2">
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    </div>
+	<script type="text/javascript">
+		/*行内元素的样式*/
+		var box = document.getElementById("test");
+		console.log(box.style.width);	//600px 字符串
+		console.log(box.style.height);	//空	字符串
+		console.log(box.style.fontSize);//20px	字符串
+		
+		/*实际的样式*/
+		/*如果有getComputedStyle函数，执行；没有使用currentStyle*/
+		var compStyle = window.getComputedStyle?window.getComputedStyle(box,null):null ||box.currentStyle;
+		console.log(compStyle.width);	//600px 字符串
+		console.log(compStyle.height);	//600px 字符串
+        console.log(compStyle.fontSize);//20px  字符串
+
+		/*获取内联外联样式*/
+		var sheet = document.styleSheets[0];
+        console.log(sheet);
+		var rule1=(sheet.rules||sheet.cssRules)[0];
+		console.log(rule1.style.width); //10px  字符串
+		console.log(rule1.style.height);//100px 字符串
+        console.log(rule1.style.fontSize);//空  字符串
+        
+       
+        /*奇了怪了，外联的sheet获取到，但里面没有rule？*/
+        var sheet2 = document.styleSheets[1];
+        //var rule2 = (sheet2.rules||sheet2.cssRules)[0];
+        //console.log(rule2);
+        //console.log(rule2.style.width);
+        console.log(sheet2.rules||sheet2.cssRules); //为null，卧槽？
+
+console.log("-------------------------------------------------------------割了你----------------------------------------------------------");
+        /*获取某元素的可视大小,会算上padding，不会算上margin和border，增加滚动条减去滚动条的宽高*/
+        console.log(box.clientWidth);   //620 number
+        console.log(box.clientHeight);  //120 number
+
+        var box2 = document.getElementById("test2");
+        /*获取滚动内容的大小*/
+        console.log(box2.scrollWidth);
+        console.log(box2.scrollHeight);
+
+
+        /*获取元素大小，包含：padding、box、滚动条*/
+        console.log(box.offsetWidth);   //640 number
+        console.log(box.offsetHeight);  //140 number
+
+
+	</script>
+</body>
+</html>

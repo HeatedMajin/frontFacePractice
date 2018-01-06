@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>用字面量原型</title>
+	</head>
+<body></body>
+<script type="text/javascript">
+/////////////////////////////////////////原型的缺点(共享)///////////////////////////////////////////////////////
+	function Box(){};
+	Box.prototype = {
+		name:"ma",
+		age:20,
+		family:["哥哥","姐姐"],
+		run:function(){
+			return this.name+this.age+"is running ...";
+		}
+	}
+	console.log(Array.prototype);
+//两个对象，一个对象修改引用类型的属性时，另外一个也会改变
+	var a  = new Box();
+	a.family.push("弟弟");
+	a.name = "majin";
+
+	var b  = new Box();
+	console.log(b.family);
+	console.log(b.name);
+////////////////////////////////////////组合构造函数+原型////////////////////////////////////////////////////////
+	function Box2(name,age){		//不共享，要独立 的属性放在构造函数中
+		this.name = name;
+		this.age= age;
+		this.family = ["哥哥","姐姐"];
+	}
+	Box2.prototype.run = function(){	//共享，放在原型中
+		return this.name+this.age+" is running...";
+	}
+/*	
+	var test = new Box2();
+	console.log(test);
+	//新大陆undefined+undefined=NaN
+*/	
+
+	var a2 = new Box2("aaa",2);
+	a2.family.push("弟弟");
+	console.log(a2.run());
+
+	var b2 = new Box2();
+	console.log(b2.family);
+
+////////////////////////////////////动态原型模式，原型封装到构造函数中///////////////////////////////////////////
+	function Sox(name,age){
+		this.name = name;
+		this.age = age;
+		this.family = ["哥哥","姐姐"];
+
+		console.log("为run赋值");
+		Sox.prototype.run = function(){
+			return this.name+this.age+" is running...";
+		}
+	}
+	
+	var s1 = new Sox("ma",12);
+	console.log(s1.run());
+
+	var s2 = new Sox("masd",321);
+	//上面会出现问题，每次创建Sox对象，都会为其原型的run赋值（没必要！！）
+
+
+	function Sox2(name,age){
+		this.name = name;
+		this.age = age;
+		if (!Sox2.prototype.run)
+		{
+			console.log("为Sox2的run赋值");
+			Sox2.prototype.run = function(){
+				return this.name+" "+this.age+" is running...";
+			}
+		}
+	}
+
+	var sox1  = new Sox2("sox1",12);
+	console.log(sox1.run());
+	var sox2 = new Sox2("sox2",13);
+	console.log(sox2.run());
+	var sox3 = new Sox2("sox3",14);
+	console.log(sox3.run());
+
+
+///////////////////////////////////////////包装模式/////////////////////////////////////////////////////////////
+	function Lox(string){
+		var obj = new String(string);
+		obj.add=function(){
+			return this + "德玛西亚";
+		}
+		return obj;
+	}
+	var l1 = new Lox("haha");
+	console.log(l1.toString());
+	console.log(l1.add());
+
+	//神奇：写了return之后，new不new都没啥区别
+	console.log(l1);
+	var l2 = Lox("haha");
+	console.log(l2);
+	
+</script>
+</html>

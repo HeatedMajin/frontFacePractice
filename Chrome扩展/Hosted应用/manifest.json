@@ -1,0 +1,22 @@
+{
+    "manifest_version":2,
+    "name":"Google mail",
+    "version":"1.0",
+    "description":"Read your mail",
+    "app":{
+        "urls":[
+            "*://mail.google.com/mail/",
+            "*://www.google.com/mail/"
+        ],
+        "launch":{
+            "web_url":"http://mail.google.com/mail/"
+        }
+    },
+    "icons":{
+        "128":"icon_128.png"
+    },
+    "permissions":[
+        "unlimitedStorage",
+        "notifications"
+    ]
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.links line {
+  stroke: #999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+</style>
+<svg width="960" height="600"></svg>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+function f(nodes){
+L = 1 // spring rest length
+K_r= 2 // repulsive force constant
+K_s = 2 // spring constant
+delta_t= 10 // time step
+
+N = nodes.length
+
+// initialize net forces
+for i= 0 to N-1
+	nodes[i].force_x= 0
+	nodes[i].force_y= 0
+
+// repulsion between all pairs
+for i1 = 0 to N-2
+	node1 = nodes[i1]
+	for i2 = i1+1 to N-1
+		node2 = nodes[i2]
+		dx = node2.x -node1.x
+		dy= node2.y -node1.y
+		if dx != 0 or dy!= 0
+			distanceSquared= dx *dx + dy*dy
+			distance = sqrt( distanceSquared)
+			force = K_r/ distanceSquared
+			fx= force * dx / distance
+			fy= force * dy/ distance
+			node1.force_x = node1.force_x -fx
+			node1.force_y = node1.force_y -fy
+			node2.force_x = node2.force_x + fx
+			node2.force_y = node2.force_y + fy
+
+// spring force between adjacent pairs
+for i1 = 0 to N-1
+	node1 = nodes[i1]
+	for j = 0 to node1.neighbors.length-1
+		i2 = node1.neighbors[j]
+		node2 = nodes[i2]
+		if i1 < i2
+			dx = node2.x -node1.x
+			dy= node2.y -node1.y
+			if dx != 0 or dy!= 0
+				distance = sqrt( dx*dx + dy*dy)
+				force = K_s*( distance -L )
+				fx= force*dx / distance
+				fy= force*dy/ distance
+				node1.force_x = node1.force_x + fx
+				node1.force_y = node1.force_y + fy
+				node2.force_x = node2.force_x -fx
+				node2.force_y = node2.force_y -fy
+
+// update positions
+for i= 0 to N-1
+	node = nodes[i]
+	dx = delta_t*node.force_x
+	dy= delta_t*node.force_y
+	displacementSquared= dx*dx + dy*dy
+	if ( displacementSquared> MAX_DISPLACEMENT_SQUARED )
+		s = sqrt( MAX_DISPLACEMENT_SQUARED / displacementSquared)
+		dx = dx *s
+		dy= dy*s
+	node.x= node.x+ dx
+	node.y= node.y+ dy
+}
+</script>
+<script>
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+var color = d3.scaleOrdinal(d3.schemeCategory20);
+
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+d3.json("data.json", function(error, graph) {
+  if (error) throw error;
+
+  var link = svg.append("g")
+      .attr("class", "links")
+    .selectAll("line")
+    .data(graph.links)
+    .enter().append("line")
+      .attr("stroke-width", function(d) { return Math.sqrt(d.value); });
+
+  var node = svg.append("g")
+      .attr("class", "nodes")
+    .selectAll("circle")
+    .data(graph.nodes)
+    .enter().append("circle")
+      .attr("r", 5)
+      .attr("fill", function(d) { return color(d.group); })
+      .call(d3.drag()
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  node.append("title")
+      .text(function(d) { return d.id; });
+
+  simulation
+      .nodes(graph.nodes)
+      .on("tick", ticked);
+
+  simulation.force("link")
+      .links(graph.links);
+
+  function ticked() {
+    link
+        .attr("x1", function(d) { return d.source.x; })
+        .attr("y1", function(d) { return d.source.y; })
+        .attr("x2", function(d) { return d.target.x; })
+        .attr("y2", function(d) { return d.target.y; });
+
+    node
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  }
+});
+
+function dragstarted(d) {
+  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+  d.fx = d.x;
+  d.fy = d.y;
+}
+
+function dragged(d) {
+  d.fx = d3.event.x;
+  d.fy = d3.event.y;
+}
+
+function dragended(d) {
+  if (!d3.event.active) simulation.alphaTarget(0);
+  d.fx = null;
+  d.fy = null;
+}
+
+</script>

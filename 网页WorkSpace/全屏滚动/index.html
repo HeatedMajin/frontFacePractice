@@ -1,0 +1,264 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>插件实现全屏滚动</title>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.fullPage.min.js"></script>
+<link rel="stylesheet" type="text/css" href="css/jquery.fullPage.css">
+<style type="text/css">
+    *{
+        border:0px;
+        margin:0;
+        padding:0;
+    }
+    .section{
+        position:relative;
+    }
+    /*第一屏，第一张img*/
+    .box1 img:nth-child(1){
+        position:absolute;
+        bottom:5%;
+        left:25%;
+    }
+    /*第一屏，第二张img*/
+    .box1 img:nth-child(2){
+        position:absolute;
+        bottom:-20%;
+        right:-10%;
+        z-index:10;
+        animation:filling 2s cubic-bezier(0, 1.25, 1,-0.15);/*名称 执行时间 最后状态*/
+    }
+    @keyframes filling{
+        from{transform:translateY(-1000px);}
+        to{transform:translateY(0px);}
+    }
+    /*第一屏，第三张img*/
+    .box1 img:nth-child(3){
+        position:absolute;
+        bottom:50%;
+        left:20%;
+    }
+    /*第一屏，第四张img*/
+    .box1 img:nth-child(4){
+        position:absolute;
+        bottom:50%;
+        left:50%;
+    }
+     /*第一屏，第五张img*/
+    .box1 img:nth-child(5){
+        position:absolute;
+        bottom:40%;
+        left:60%;
+    }
+     /*第一屏，第六张img*/
+    .box1 img:nth-child(6){
+        position:absolute;
+        bottom:40%;
+        left:40%;
+    }
+
+    .wheel{
+        animation:rotating 3s 2s linear infinite ;
+    }
+    
+    .quickWheel{
+        animation:rotating 4s 2s linear infinite ;
+    }
+    .superWheel{
+        animation:rotating 2s 2s linear infinite ;
+    }
+    @keyframes rotating{
+        from{transform:rotate(0deg)}
+        to{transform:rotate(360deg)}
+    }
+
+    /****第二屏****/
+    /*第一张 map*/
+    .box2 img:nth-child(1){
+        position:absolute;
+        bottom:2%;
+        left:10%;
+    }
+    /*第二张 nail*/
+    .box2 img:nth-child(2){
+        position:absolute;
+        bottom:2%;
+        right:5%;
+    }
+    /*第三张 could*/
+    .box2 img:nth-child(3){
+        position:absolute;
+        top:10%;
+        left:20%;
+    }
+    .nail{
+        animation:nailing 1s linear paused;
+    }
+    @keyframes nailing{
+        from{transform:translateY(-400px);}
+        to{transform:translateY(0px);}
+    }
+    .cloud{
+        animation:clouding 1s linear paused;
+    }
+    @keyframes clouding{
+        from{transform:translateX(600px);}
+        to{transform:translateX(0px);}
+    }
+
+
+    /***** 第三屏 *****/
+    /*第一张图 phone*/
+    .box3 img:nth-child(1){
+        position:absolute;
+        bottom:-5px;
+        left:20%;
+    }
+    .box3 img:nth-child(2){
+        position:absolute;
+        bottom:75px;
+        left:30%;
+    }
+    .box3 img:nth-child(3){
+        position:absolute;
+        bottom:400px;
+        left:20%;
+    }
+
+    .shop{
+        animation:shopping 1s linear paused;
+    }
+    .fun{
+        animation:funning 1s linear paused;
+    }
+    @keyframes shopping{
+        from{transform:translateY(-260px);}
+        to{transform:translateY(0px);}
+    }
+    @keyframes funning{
+        from{transform:translateY(200px);}
+        to{transform:translateY(0px);}
+    }
+
+
+     /***** 第四屏 *****/
+    /*第一张图 phone*/
+    .box4 img:nth-child(1){
+        position:absolute;
+        bottom:287px;
+        left:89px;
+        transform-origin:bottom right;
+        animation:rot_BR 1s paused;
+    }
+    @keyframes rot_BR{
+        from{transform:rotate(30deg);}
+        to{transform:rotate(0deg);}
+    }
+    .box4 img:nth-child(2){
+        position:absolute;
+        bottom:10px;
+        left:100px;
+    }
+    .box4 img:nth-child(3){
+        position:absolute;
+        bottom:10%;
+        right:5%;
+    }
+    .box4 img:nth-child(4){
+        position:absolute;
+        bottom: 8%;
+        right: 30%;
+    }
+    .box4 img:nth-child(5){
+        position:absolute;
+        bottom:30%;
+        right:20%;
+    }
+    .gift{
+        animation:gifting 1s linear paused;
+    }
+    @keyframes gifting{
+        from{transform:translateX(-200px);}
+        to{transform:translateX(0);}
+    }
+    .ballon{
+        animation:ballon 1s linear paused;
+    }
+    @keyframes ballon{
+        from{transform:translateY(-100px);}
+        to{transform:translateY(0px);}
+    }
+</style>
+<script>
+$(function(){
+    $("#dowebok").fullpage({
+        slidesColor:["rgb(254, 218, 137)","rgb(222, 79, 80)","rgb(144, 74, 104)","rgb(104, 195, 159)"],
+        navigation:true,
+        css3:true,
+        afterLoad:function(anchorLink,index){
+            if(index==1){
+                $(".wheel").css("animation-play-state","running");
+                $(".quickwheel").css("animation-play-state","running");
+                $(".superwheel").css("animation-play-state","running");
+                $(".filling_phone").css("animation-play-state","running");
+            }
+            if(index==2){
+                $(".nail").css("animation-play-state","running");
+                $(".cloud").css("animation-play-state","running");
+            }
+            if(index==3){
+                $(".shop").css("animation-play-state","running");
+                $(".fun").css("animation-play-state","running");
+            
+            }
+            if(index==4){
+                $(".phone").css("animation-play-state","running");
+                $(".gift").css("animation-play-state","running");
+                $(".ballon").css("animation-play-state","running");
+            }
+        }
+    });
+});
+</script>
+
+</head>
+<body>
+	<div id="dowebok">
+		<div class="section">
+            <div class="box1">
+                <img src="images/cl.png">
+                <img src="images/ph1.png" class="filling_phone">
+                <img src="images/wheel-1.png" class="quickWheel">
+                <img src="images/wheel-2.png" class="superWheel">
+                <img src="images/wheel-3.png">
+                <img src="images/wheel-4.png" class="wheel">
+            </div>
+        </div>
+		<div class="section">
+            <div class="box2">
+                <img src="images/map.png">
+	    		<img src="images/nail.png" class="nail">
+    			<img src="images/cloud.png" class="cloud">
+            </div>
+        </div>
+		<div class="section">
+            <div class="box3">
+                <img src="images/v-phone.png">
+			    <img src="images/shop.png" class="shop">
+	    		<img src="images/fun.png" class="fun">
+            </div>
+        </div>
+		<div class="section">
+            <div class="box4">
+                <img src="images/phone_1.png" class="phone">
+                <img src="images/phone_2.png">
+                <img src="images/gift_1.png" class="gift">
+                <img src="images/gift_2.png">
+                <img src="images/ballon.png" class="ballon">
+            </div>
+        </div>
+	</div>
+</body>
+
+
+</html>

@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<title>原型</title>
+	</head>
+<body></body>
+<script type="text/javascript">
+	function Box(name,age){		//构造方法
+		this.name = name;		//实例属性
+		this.age = age;
+		this.run = function(){	//实例方法
+			console.log(this.name+this.age+" is running...");
+		}
+	}
+	var box1 = new Box("majin",20);
+	box1.run();
+	console.log(box1);
+
+	function Box2(){}			//构造方法中什么都没有，有就成了实例属性了
+	Box2.prototype.name="a";	//原型属性
+	Box2.prototype.age = 20;
+	Box2.prototype.run= function(){//原型方法
+		console.log(this.name+this.age+" is running...");
+	}
+
+	var box2 = new Box2();
+	box2.run();
+	console.log(Box2.prototype);	//这个属性是对象
+	console.log(box2.__proto__);	
+	
+	//就近原则
+	console.log(box2.name);	//访问的原型中的name
+	box2.name = "b";
+	console.log(box2.name);	//访问的是实例中的name
+
+	//删除属性
+	delete box2.name;	//删除实例中的name
+	console.log(box2.name);
+	delete Box2.prototype.name;	//删除原型中的name
+	console.log(box2.name);
+
+	//判断某实例是否指向原型对象
+	console.log(Box2.prototype.isPrototypeOf(box2));
+
+
+	//判断属性是不是在实例中(obj).hasOwnProperty('(name)')
+	console.log(box2.hasOwnProperty('age'));
+	box2.sex = 'nan';
+	console.log(box2.hasOwnProperty('sex'));
+
+	//判断属性是不是在实例或其原型中 'name' in (obj)
+	console.log('sex' in box2);
+
+	console.log(tet('age',box2));
+	//判断属性是不是只在原型中的
+	function tet(name,obj){
+		return !obj.hasOwnProperty(name)&&(name in obj)
+	}
+</script>
+</html>

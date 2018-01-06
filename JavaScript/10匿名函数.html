@@ -1,0 +1,39 @@
+<!DOCTYPE html?
+<html>
+	<head>
+		<title>匿名函数</title>
+	</head>
+<body>
+	<script>
+/*
+	//匿名函数无法单独存在
+	function(){
+		console.log("b");
+	}
+*/
+	//匿名函数赋值给变量
+	var b = function(){
+		console.log("b");
+	};
+//	b();
+
+
+	//匿名函数自执行
+	(function(){
+		console.log("hahaha");
+	})();
+
+	//匿名函数自执行，返回值
+	var a = (function(){
+		return "hahaha";
+	})();
+	console.log(a);
+
+	//匿名函数自执行传参
+	(function(name){
+		console.log(name);
+	})("wahaha");
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>闭包实现私有作用域</title>
+<style>
+	pre{color:red;}
+</style>
+</head>
+<body>
+<h1>
+<pre>
+很邪性！！
+(function(){
+	//这里定义的number类型，外面访问是undefined
+	//而定义的string，外面访问是空串
+})();
+</pre></h1>
+	<script type="text/javascript">
+	//以函数为一个作用域，而不是{}
+	function a(){
+		var index = 0;
+		var strz = "asd";
+		if (1)
+		{
+			var i = 1;
+		}
+		console.log(i);//i可以访问
+	}
+	a();
+//	console.log(strz);//strz未定义
+//	console.log(index);//index未定义
+
+
+	//使用私有作用域
+	(function(){
+		var name= "asd"
+		var age=1;
+	})();
+	console.log(name);//name为空串！！！！！
+	console.log(age);//age未定义
+
+
+
+
+	</script>
+</body>
+</html>

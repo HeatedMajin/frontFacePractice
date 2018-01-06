@@ -1,0 +1,133 @@
+*{
+	margin:0;
+	padding:0;
+}
+.section div{
+	position:relative;
+	width:500px;
+	height:100%;
+	margin:auto;
+}
+.section div img{
+	position:absolute;
+}
+.section div.box1 img:nth-child(1){
+	top:350px;
+}
+.section div.box1 img:nth-child(2){
+	bottom:-84px;
+	right:-300px;
+	z-index:999;
+	animation:phone 2.5s;
+}
+@keyframes phone{
+	from{transform:translateY(-840px);}
+	to{transform:translateY(0px);}
+}
+.section div.box1 img:nth-child(3){
+	top:137px;
+}
+.section div.box1 img:nth-child(4){
+	top:200px;
+	right:20px;
+}
+.section div.box1 img:nth-child(5){
+	top:470px;
+	right:70px;
+}
+.section div.box1 img:nth-child(6){
+	top:500px;
+	right:80px;
+}
+.wheel{
+	-webkit-animation:wheel 5s 2.5s linear infinite ;
+	-moz-animation:wheel 5s 2.5s linear infinite ;
+	-ms-animation:wheel 5s 2.5s linear infinite ;
+	-o-animation:wheel 5s 2.5s linear infinite ;
+	animation:wheel 5s 2.5s linear infinite ;
+}
+@keyframes wheel{
+	from{transform:rotate(0deg);}
+	to{transform:rotate(360deg);}
+}
+
+.section div.box2 img:nth-child(1){
+	top:350px;
+}
+.section div.box2 img:nth-child(2){
+	bottom:50px;
+	right:-300px;
+	animation:nail 2.5s paused;/*名称 时间 停止动画*/
+}
+.section div.box2 img:nth-child(3){
+	
+	animation:cloud 2.5s paused;
+}
+@keyframes nail{
+	from{transform:translateY(-240px);}
+	to{transform:translateY(0px);}
+}
+@keyframes cloud{
+	from{transform:translateX(700px);}
+	to{transform:translateX(0px);}
+}
+
+.section div.box3 img:nth-child(1){
+	bottom:-70px;
+}
+.section div.box3 img:nth-child(2){
+	
+	bottom:0px;
+	left:50px;
+	animation:shop 2.5s paused;
+}
+.section div.box3 img:nth-child(3){
+	top:200px;
+	animation:fun 2.5s paused;
+}
+@keyframes shop{
+	from{transform:translateY(-640px);}
+	to{transform:translateY(0px);}
+}
+@keyframes fun{
+	from{transform:translateY(200px);}
+	to{transform:translateY(0px);}
+}
+
+.section div.box4 img:nth-child(1){
+	top: 300px;
+    left: -13px;
+	animation:phone1 2.5s paused;
+	transform:rotate(30deg);
+	transform-origin:bottom right;/*旋转中心*/
+}
+.section div.box4 img:nth-child(2){
+	bottom:0px;
+}
+.section div.box4 img:nth-child(3){
+	bottom:0px;
+	right:0px;
+	animation:gift 2.5s paused;
+}
+.section div.box4 img:nth-child(4){
+	top:200px;
+	right:20px;
+}
+.section div.box4 img:nth-child(5){
+	top:100px;
+	right:-270px;
+	animation:ballon 2.5s paused;
+	
+}
+@keyframes phone1{
+	from{transform:rotate(0deg);}
+	to{transform:rotate(30deg);}
+}
+@keyframes gift{
+	from{transform:translateX(200px);}
+	to{transform:translateX(0px);}
+}
+@keyframes ballon{
+	from{transform:translateY(400px);}
+	to{transform:translateY(0px);}
+}

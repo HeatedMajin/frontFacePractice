@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>淘宝电商图片实时预览</title>
+
+<!-- init style -->
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<link rel="stylesheet" type="text/css" href="css/animate.css">
+<style type="text/css">
+	.content{width:982px;height:00px;margin:0 auto;margin-top:70px;}
+	#smalImgBox{width:430px;height:430px;float:left;position:relative;
+		cursor:move;/*让光标变成十字*/box-shadow:1px 1px 5px #333;}
+	#cover{width:120px;height:120px;background:#66ff99;position:absolute;left:0px;top:0px;display:none;opacity:0.4;}
+	#detail{width:547px;height:582px;float:left;}
+
+	#bigImg{width:430px;height:430px;float:left;position:absolute;left:615px;top:70px;background:white;
+		background-image:url("image/2.jpg");background-repeat:no-repeat;display:none;box-shadow:1px 1px 5px #333;}
+</style>
+</head>
+<body>
+    <div class="content">
+		<div id="smalImgBox">
+			<img id="smalImg" src="image/1.jpg" alt="暗影精灵第二代 北极星HP" width="430px" height="430px"/>
+			<div id="cover"></div>
+		</div>
+		<div id="detail">
+			<img src="image/3.jpg" alt="北极星HP 文字描述" width="547px" height="582px"/>
+		</div>
+		<div id="bigImg" class="animated fadeOut"></div>
+	</div>
+	<!--js-->
+	<script type="text/javascript">
+		/*网页加载完成window.onload*/
+		window.onload=function(){
+			var left = document.getElementById("smalImgBox");/*左边图片区域*/
+			var cover = document.getElementById("cover");/*浮层*/
+			var bigImg= document.getElementById("bigImg");/*大图片*/
+			/*onmouseover:鼠标移动上去*/
+			left.onmouseover=function(){
+				cover.style.display="block";
+				left.style.boxShadow="10px 10px 20px #333;";
+			}
+			/*onmouseover:鼠标移动出去*/
+			left.onmouseout=function(){
+				cover.style.display="none";
+				left.style.boxShadow="0px 0px 0px #333;";
+				bigImg.setAttribute('class','animated fadeOut');
+
+			}
+			/*onmousemove:鼠标在上面移动*/
+			left.onmousemove=function(e){
+				//获取到鼠标的位置(以left左上角为原点)
+				var ev = e||window.event;	//e:chrome下事件源，window.event:IE下的事件源
+				var mouseX = (ev.clientX || ev.pageX) - left.offsetLeft;	//也是考虑兼容
+				var mouseY = (ev.clientY || ev.pageY) - left.offsetTop;
+
+				//居中
+				var covX = mouseX  - cover.offsetWidth/2;	//offsetWidth获取到元素的宽度
+				var covY = mouseY  - cover.offsetHeight/2;
+				//console.log(covX+","+covY);
+				
+				//边界
+				var maxX = left.offsetWidth - cover.offsetWidth;
+				var maxY = left.offsetHeight - cover.offsetHeight;
+				if(covX<0)covX = 0;
+				else if(covX>maxX)covX=maxX;
+				if(covY<0)covY = 0;
+				else if(covY>maxY)covY=maxY;
+
+				//设置浮层的位置
+				cover.style.left = covX+"px";
+				cover.style.top = covY+"px";
+
+
+				//设置大图片的位置
+				var rate = 800/430;
+				var bigX = rate * covX;
+				var bigY = rate * covY;
+				bigImg.setAttribute('class','animated fadeIn');
+				bigImg.style.display="block";
+				bigImg.style.backgroundPosition="-"+bigX+"px -"+bigY+"px";
+			}
+		}
+	</script>
+</body>
+</html>

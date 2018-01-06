@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<title>视频弹出框</title>
+
+<style type="text/css">
+    /*global css*/
+	*{border:0;margin: 0;padding: 0;}
+	.content{width:1349px;height:664px;background: url(images/img12.jpg);margin: 0 auto;}
+	
+    /*video*/
+	.content .video{width: 0px;height: 0px;border:6px solid #111;box-shadow: 0px 0px 27px #EEE;border-radius: 12px; display: none;
+		            position: absolute;z-index: 2;background: #000;position: relative;}
+    .content video {border-radius: 16px;margin: auto auto;display: block;}
+
+    /*word control*/
+    .content .controls{z-index: 2;color: white;font-size: 20px;}
+
+    /*cover*/
+    .content #cover{background:#000;opacity: 0.7;display: none;z-index:1;position: absolute;}
+
+    /*contorls groups*/
+    #controls_group{width:600px;margin:0 auto;}
+    #controls_group div{width: 52px;height:52px;background-image: url(images/icon.png);border-radius: 26px;position: absolute; opacity: 0.3;cursor: pointer;}
+    #controls_group div:hover{opacity: 0.55;}
+    
+    /*per-controls*/
+    #prev{background-position: -341px -220px;left:6px;top:422px;}
+    #play{background-position: -177px -130px;left:380px;top:240px}
+    #pause{background-position: -341px -130px;left:380px;top:240px;display: none;}
+    #next{background-position: -177px -220px;left:120px;top:422px;}
+    #stop{background-position: -502px -128px;left:63px;top:422px;}
+    #volume{background-position: -502px -220px;left:707px;top:422px;}
+    #controls_group #fullscreen{background-image:url(images/fullscreen.png);background-position: -7px -3px;left:764px;top:422px;}
+	
+</style>
+</head>
+<body>
+    	<div class="content">
+            <!-- controls start -->
+            <div class="controls">
+    		  <a href="#" id="open_video">打开视频</a>
+    		  <a href="#" id="close_video">关闭视频</a>
+            </div>
+            <!-- end controls -->
+
+            <!-- video start -->
+			<div class="video" id="video">
+				<video id="player" width="800px" height="490px" src="videos/1.mp4">您的播放器暂不支持播放</video>
+                <div id="controls_group">
+                    <div id="prev"></div>
+                    <div id="play"></div>   
+                    <div id="pause"></div>
+                    <div id="next"></div>
+                    <div id="stop"></div>
+                    <div id="volume"></div> 
+                    <div id="fullscreen"></div>
+                </div>
+			</div>
+            <!-- end video -->
+
+            <!--cover start-->
+            <div id="cover"></div>
+            <!-- end cover -->
+    	</div>
+
+		<!-- 引入JQ -->
+    	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+    	<script type="text/javascript">
+            var video = document.getElementById("player");            
+            var pauseBtn = document.getElementById("pause");
+            var startBtn = document.getElementById("play");
+
+            startBtn.onclick = clickStartPause;/*click start*/
+            pauseBtn.onclick =clickStartPause;/*click pause*/
+
+            var played =false;
+            function clickStartPause(){
+                if(!played){
+                    video.play();
+                    $("#pause").show();
+                    $("#play").hide();
+                }else{
+                    video.pause();
+                    $("#play").show();
+                    $("#pause").hide();
+                }
+                played=!played;
+            }
+
+            
+            
+        </script>
+        <script type="text/javascript">
+    		$(function () {
+    			// alert(0)
+    			$("#open_video").click(function(){
+                    $("#cover").show().animate({
+                        left:"0px",
+                        top:"30px",
+                        width: "100%",
+                        height: "100%"
+                    },600);
+
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").show().animate({
+    					width:"820px",
+    					height:"480px",
+    					left:"+"+left+"px",
+    					top:"+"+top+"px"
+    				},700);
+    			});
+    			$("#close_video,#cover").click(function(){
+                    $("#cover").animate({
+                        left:"-0px",
+                        top:"30px",
+                        width: "0px",
+                        height: "0px"
+                    },700,function(){
+                        $(this).hide();
+                    });
+                
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").animate({
+    					width:"0px",
+    					height:"0px",
+    					left:"-"+0+"px",
+    					top:"+"+30+"px"
+    				},600,function(){
+                        $(this).hide();
+                        if(played){
+                            clickStartPause();
+                        }
+                    });
+    			});
+                
+    		})
+    	</script>
+</body>
+</html>

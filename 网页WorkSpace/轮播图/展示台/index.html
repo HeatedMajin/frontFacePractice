@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="关键词，关键字">
+	<meta name="Description" content="描述信息">
+	<title>title</title>
+
+	<!-- init style -->
+	<link rel="stylesheet" type="text/css" href="css/init.css">
+
+	<!-- customize style -->
+	<style type="text/css">
+		body{background:#000;}
+		.content{width:900px;height:485px;margin:100px auto;position:relative;border-radius:4px;}
+		.content ul li img{
+			width:100%;
+			height:100%;
+			border-radius:4px;
+			box-shadow:8px 8px 10px #555;
+		}
+		.content ul{
+			width:100%;
+			height:100%;
+			background:#000;
+			position:relative;
+			border-radius:4px;
+		}
+		.content ul li.left{
+			width:300px;
+			height:485px;
+			opacity:0.5;
+			position:absolute;
+			left:0px;
+			top:0px;
+			z-index:2;
+		}
+		.content ul li.right{
+			width:300px;
+			height:485px;
+			opacity:0.5;
+			position:absolute;
+			left:600px;
+			top:0px;
+			z-index:2;
+		}
+		.content ul li.top{
+			position:absolute;
+			width:400px;
+			height:630px;
+			left:250px;
+			top:-90px;
+			opacity:1;
+			z-index:4;
+		}
+		.content ul li.center{
+			width:300px;
+			height:485px;
+			opacity:0;
+			position:absolute;
+			left:300px;
+			top:0px;
+			z-index:2;
+		}
+		.content .cov{
+			width:100%;
+			height:100%;
+			background:rgba(0,0,0,.6);
+			position:absolute;
+			top:0;
+			left:0;
+		}
+
+		/* button */
+		.content .button_groups{
+			position:absolute;
+			top:0;
+			left:0;
+			width:100%;
+			height:100%;
+			display:flex;/*开启动态盒模型布局*/
+		    justify-content: space-between;
+		    align-items: center;
+			z-index:10;
+		}
+		.content .button_groups .btn{
+			width:40px;
+			height:40px;
+			color:#EEE;
+			font-size:25px;
+			text-align:center;
+			line-height:40px;
+			cursor:pointer;
+			opacity:0.5;
+			border-radius:50%;
+			border:1px solid #BBB;
+			margin:0 10px;
+		}
+		.content .button_groups .btn:hover{
+			opacity:0.7;
+			background:#444;
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<ul>
+			<li class ="top">
+				<img src="images/1.jpg" width="400" height="630" alt="美女1"></img>
+			</li>
+			<li class="right">
+				<img src="images/2.jpg" width="400" height="630" alt="美女2"></img>
+			</li>
+			<li class="center">
+				<img src="images/3.jpg" width="400" height="630" alt="美女3"></img>
+			</li>
+			<li class="center">
+				<img src="images/4.jpg" width="400" height="630" alt="美女3"></img>
+			</li>
+			<li class="center">
+				<img src="images/5.jpg" width="400" height="630" alt="美女3"></img>
+			</li>
+			<li class="center">
+				<img src="images/6.jpg" width="400" height="630" alt="美女3"></img>
+			</li>
+			<li class="center">
+				<img src="images/7.jpg" width="400" height="630" alt="美女3"></img>
+			</li>
+			<li class="center">
+				<img src="images/8.jpg" width="400" height="630" alt="美女4"></img>
+			</li>
+			<li class="left">
+				<img src="images/9.jpg" width="400" height="630" alt="美女4"></img>
+			</li>
+		</ul>
+		<div class="button_groups">
+			<div id="lbtn" class="btn">&lt;</div>
+			<div id="rbtn" class="btn">&gt;</div>
+		</div>
+		<!-- <div class="cov"></div> -->
+	</div>
+	
+<script type="text/javascript" src="js/jquery.js"></script>
+<script>
+	$("#lbtn").click(function(){
+		transform(-1);
+	});
+	$("#rbtn").click(function(){
+		transform(1);
+	});
+
+	
+	var done =true;
+	/*转换图片*/
+	function transform(offset){
+		if(!done)
+			return;
+		done = false;
+		//记录每个li图片的 宽高、位置、层级、透明度
+		var arrW = [],arrH = [],arrT = [],arrL = [],arrZ = [],arrO =[];
+		var jq_lis = $(".content ul li");//获取li
+		var num_img = jq_lis.length;//li的数量
+		jq_lis.each(function(i){
+			arrW[i]=$(this).css("width");
+			arrH[i]=$(this).css("height");
+			arrT[i]=$(this).css("top");
+			arrL[i]=$(this).css("left");
+			arrZ[i]=$(this).css("z-index");
+			arrO[i]=$(this).css("opacity");
+		});
+
+		//交换他们的属性
+		jq_lis.each(function(i){
+			var newi = i + offset;
+			//边界调整
+			if(newi<0){
+				newi=num_img-1;
+			}else if(newi>=num_img){
+				newi=0;
+			}
+			//动画改变属性
+			$(this).animate({
+				width:arrW[newi],
+				height:arrH[newi],
+				top:arrT[newi],
+				left:arrL[newi],
+				"z-index":arrZ[newi],
+				opacity:arrO[newi]
+			},400,function(){//交换动画完成以后，才可以进行下一次的交换
+				done = true;
+			});
+			
+		});
+
+	}
+</script>
+</body>
+</html>

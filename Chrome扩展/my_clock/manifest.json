@@ -1,0 +1,21 @@
+{
+    "manifest_version":2,               //清单文件的版本号<必须>
+    "name":"我的时钟",                  //扩展的名字<必须>
+    "version":"1.0",                    //扩展的版本号<必须> 
+
+    "description":"我的第一个Chrome扩展", //对扩展的描述
+    "icons":{                           
+        "16":"images/icon19.png",
+        "32":"images/icon19.png",
+        "128":"images/icon19.png"
+
+    },  
+    "browser_action":{                  //在浏览器中的状态
+        "default_icon":{                //扩展在浏览器中的图标
+            "19":"images/icon19.png",
+            "38":"images/icon19.png"
+        },
+        "default_title":"我的时钟",     //hover显示的文本
+        "default_popup":"popup.html"    //所显示页面的位置
+    }
+}

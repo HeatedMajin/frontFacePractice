@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>匿名函数之闭包</title>
+	</head>
+<body>
+<h2>闭包：返回匿名函数</h2>
+<h3>闭包应用：返回局部变量<br>
+注意：闭包时，局部变量会驻留内存<br>
+解决全局变量的冲突，带来些许内存消耗
+</h3>
+	<script>
+/////////////////////////////  test  ////////////////////////////////////////////
+	function Box(){
+		return function(){
+			console.log("hahaha");
+		}
+	}
+	var ret_fun = Box();
+	ret_fun();
+
+/////////////////////////////  返回局部变量  ////////////////////////////////////////////
+	function a(){
+		var ind = 0;
+		return function(){
+			ind++;
+			return ind;
+		}
+	}
+	var ret_fun = a();
+	console.log(ret_fun());
+	console.log(ret_fun());
+
+	</script>
+</body>
+</html>

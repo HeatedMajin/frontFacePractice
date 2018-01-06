@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>title</title>
+     <style>
+    div{
+        position:absolute;
+        top:0;
+        width:1400px;
+        height:700px;
+        background:yellow;
+        z-index:1;
+
+    }
+    #btn{
+        display:block;
+        z-index:100;
+        position:absolute;
+        
+    }
+    </style>
+    <link rel="stylesheet" href="">
+</head>
+<body style="overflow:hidden;padding:0;">
+    <input id="btn" type="button" value="出现吧~美女~" onclick="show()" >
+    <div id="box">
+        
+    </div>
+
+    <script type="text/javascript">
+        /*动态加载样式*/
+        function show(){
+            var css =document.createElement("link");
+            css.rel="stylesheet";
+            css.href="css/2.css";
+            document.getElementsByTagName("body")[0].appendChild(css);
+            btn.onclick="";
+        }
+        
+    </script>
+   
+</body>
+</html>

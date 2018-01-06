@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>title</title>
+
+    <!-- customize style -->
+    <style type="text/css">
+        #in_text{ime-mode:disabled;}
+    </style>
+</head>
+<body>
+    <form action="http://baidu.com" >
+        <table>
+            <tr>
+                <td>姓名：<input id="in_text" type="text" value="fuck you"/></td>
+            </tr>
+            <tr>
+            <td>性别：<select name="" id="se">
+                <option value="nan">男</option>
+                <option value="nv">女</option></select></td>
+            </tr>
+            <tr>
+            <td>爱好：<select name="" id="ai" multiple="true">
+                <option value="asd">足球</option>
+                <option value="asd">篮球</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>国家:<select name="country" id="country">
+                    <option value="china">中国</option>
+                    <option value="USA">美国</option>
+                    </select></td>
+                <td>省: <select name="sheng" id="sheng"></select>   </td>
+                <td>市:<select name="shi" id="shi"></select></td>
+            </tr>
+            <tr>
+            <td>提交：<input id="in_submit" type="submit"/></td>
+            </tr>
+        </table>
+    </form>
+    <script type="text/javascript">
+        var in_text  = document.getElementById("in_text");
+        var in_submit = document.getElementById("in_submit");
+        in_submit.onclick = function(e){
+            e.returnValue = false;
+            /*选中全部文字，并移入焦点*/
+            //in_text.select();
+
+            /*选中第一个文字*/
+            in_text.setSelectionRange(0,1);
+            in_text.focus();
+        }
+
+        in_text.addEventListener('select',function(){
+            console.log(this.selectionStart,this.selectionEnd);
+            console.log(this.value.substring(this.selectionStart,this.selectionEnd));
+        });
+
+
+        in_text.addEventListener('copy',function(){
+            alert(0);
+        });
+
+        in_text.addEventListener('cut',function(e){
+            alert(0);
+            e.returnValue = false;
+        });
+
+        
+
+    </script>
+</body>
+</html>

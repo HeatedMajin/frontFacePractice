@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="关键词，关键字">
+	<meta name="Description" content="描述信息">
+	<title>title</title>
+
+	<!-- init style -->
+	<link rel="stylesheet" type="text/css" href="css/init.css">
+	<!-- customize style -->
+	<style type="text/css">
+		.content{
+			text-align:center;
+		}
+		canvas{/*和img标签类似*/
+			display:block;
+			margin:10px auto;
+		}
+		@font-face {
+			font-family:hychf;
+			src:url(fonts/hychf.ttf);
+		}
+	</style>
+</head>
+<body>
+	<div class="content">
+		<!-- 和img标签类似 -->
+		<canvas id="canvas" width="500" height="600">你的浏览器不支持canvas,拜拜了~~</canvas>
+		<input type="text" placeholder="请输入文字..." id="text" value="卡特琳娜" maxlength="16">
+		<label>选择字体背景</label>
+		<select name="" id="select">
+			<option value="images/1.jpg">小雪</option>
+			<option value="images/2.jpg">彩糖</option>
+			<option value="images/3.jpg">神仙</option>
+			<option value="images/4.jpg">龙珠</option>
+		</select>
+	</div>
+	<script type="text/javascript">
+		var bq_canvas = document.getElementById("canvas");
+		var bq_text = document.getElementById("text");
+		var bq_select = document.getElementById("select");
+
+		pen = bq_canvas.getContext("2d");//获取2d绘图的对象
+		
+		//整个大背景的绘制
+		var bg = new Image();
+		bg.src = "images/0.jpg";
+		bg.onload=function(){//必须在图片加载出来之后才可以画
+			pen.drawImage(bg,0,0,500,600);//绘制大背景图片
+		}
+
+		//以图片为文字的样式
+		var textStyle = new Image();
+		textStyle.src= bq_select.value;
+		textStyle.onload=function(){
+			drawText();
+		}
+		function drawText(){
+			pen.drawImage(bg,0,0,500,600);//重绘大背景,不然背景会花掉
+
+			//要绘制的文本
+			text = bq_text.value;
+			
+			//以选中的背景为字体样式
+			var textBg = pen.createPattern(textStyle,"repeat");
+			pen.fillStyle=textBg;//颜色
+
+			//计算字体的大小
+			var font_size = (bq_canvas.width-60)/text.length;//两边各留30px
+			//计算字体的位置,让文本居中
+			var fx = Math.ceil((bq_canvas.width-pen.measureText(text).width)/2);//measure()可以获取到文本的实际长度
+			var fy = Math.ceil((bq_canvas.height-font_size)/2);
+
+			//添加适当的阴影
+			pen.shadowOffsetX=Math.ceil(font_size/8+1);
+			pen.shadowOffsetY=Math.ceil(font_size/8+1);
+			pen.shadowBlur=Math.ceil(font_size/20.0);
+			pen.shadowColor="rgba(0,0,0,.9)";
+
+			pen.font=font_size+"px hychf";//字号,自定义字体
+			pen.textBaseline="top";//文本竖直的对齐基线
+			pen.fillText(text,fx,fy);//内容 坐标位置
+
+			textStyle.src= bq_select.value;//这里实现了死循环,和上面onload循环:加载完图片执行该函数,而该函数执行完修改图片的src重新加载
+		}
+
+	</script>
+</body>
+</html>

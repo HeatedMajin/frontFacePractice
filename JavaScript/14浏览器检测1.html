@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>浏览器检测</title>
+</head>
+<body>
+
+</body>
+<script>
+/*navigator对象*/
+console.log(navigator);
+/*浏览器的名称*/
+console.log(navigator.appName);/*非完整信息，老IE显示Mircosoft...,opera显示opera，其余的都是Netscape*/
+console.log(navigator.appVersion);/*浏览器的版本*/
+console.log(navigator.cookieEnabled);/*是否支持cookie*/
+var lang_sup = navigator.languages;/*浏览器支持的语言*/
+for(var i=0;lang_sup&&i<lang_sup.length;i++){
+	console.log(lang_sup[i]);	
+}
+
+/*低版本的IE检测*/
+var IE = navigator.appName=="Microsoft Internet Explorer";//浏览器的名称
+partten = /\d\.\d(?= \(.*)/;//浏览器的版本号
+var ver = navigator.appVersion;
+if(ver<7 && IE){
+	console.log("需要做IE低版本的处理");
+}
+
+
+/*查看所有的插件，IE没有插件*/
+var plugs = navigator.plugins;
+for (var i = 0 ; i<plugs.length ;++i )
+{
+	document.write("插件名称:"+plugs[i].name+"<br>");
+	document.write("文件名称:"+plugs[i].filename+"<br>");
+	document.write("插件描述:"+(plugs[i].description?plugs[i].description:"无")+"<br>");
+	document.write("<br>")
+}
+
+/* 检测浏览器是否有某插件*/
+function has_plug(name){
+	for (var i=0;i<plugs.length;i++)
+	{
+		console.log(plugs[i].name);
+		if(plugs[i].name.match(name)){
+			return true;
+		}
+	}
+	return false;
+}
+if(has_plug("Flash")){
+	console.log("含有Flash插件");
+}else{
+	console.log("没有Flash插件");
+}
+
+
+/*检测是否有Active控件*/
+function has_ActiveX(name){
+	try{
+		new ActiveXObject(name);
+		return true;
+	}catch(e){
+		return false;
+	}
+}
+console.log(has_ActiveX("Shockwave Flash"));
+</script>
+</html>	

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>1.测试数据和元素的绑定 datum data</title>
+</head>
+<body>
+    <ul>
+        <li>使用datum()将数据绑定到元素上</li>
+        <li>使用data()将数组绑定到元素集上</li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="content">
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+
+
+    <!-- 引入D3 -->
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript">
+
+/*
+        //将字符串绑定到所有的p标签上
+        var str = "china";
+        
+        var body = d3.select("body");//得到body标签
+        var ps = body.selectAll("p");//获取到所有的p标签
+
+        ps.datum(str);
+
+        ps.text(function(d,i){
+            //d 代表数据
+            //i 代表元素的索引
+            return "第"+i+"个p标签"+d;
+        });
+ */       
+
+
+        //将数组分别绑定到三个p标签上
+        var arr = ["i like dog","I can fly "," Go to bed"];
+
+        d3.select("body").selectAll("p").data(arr).text(function(d,i){
+            return "第"+i+"个文本是"+d;
+        });
+    </script>
+</body>
+</html>

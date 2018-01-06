@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>1.hello world</title>
+    <style>
+    *{
+    cursor: none!important;
+}
+    </style>
+</head>
+<body>
+    <div class="content">
+        <p></p>
+        <p></p>
+        <p></p>
+    </div>
+
+
+    <!-- 引入D3 -->
+    <script type="text/javascript" src="js/d3.js"></script>
+    <script type="text/javascript">
+        var str = "china";
+        
+        var body = d3.select("body");//得到body标签
+        var ps = body.selectAll("p");//获取到所有的p标签
+
+        ps.text("hello world").style("color","red");  
+    </script>
+</body>
+</html>

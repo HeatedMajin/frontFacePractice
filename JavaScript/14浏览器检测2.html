@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>浏览器检测</title>
+</head>
+<body>
+<pre>
+	1、能力检测
+		检测是否有某些功能
+	2、怪癖检测
+		缺陷
+	3、用户代理检测
+</pre>
+</body>
+<script>
+var w = window.innerWidth;
+//alert(w);//老师的例子上IE没有的
+
+var o= {
+	toString:function(){}
+};
+for (var i in o )
+{
+//	alert(i);//老师的例子上IE也不会出现，在加上了toString2后才会有
+}
+
+
+//////////////////////////////用户代理检测///////////////////////////////////////////////
+var dectect = function(){//对象匿名构造函数
+	var engine = {
+		IE:false,
+		opera:false,
+		gecko:false,//firefox
+		webkit:false,//chrome、safari
+		khtml:false,
+	
+		ver:0//引擎的版本
+	};
+
+	if(window.opera){//window对象支持opera属性,只有Opera浏览器支持
+		engine.opera=true;
+		engine.ver=window.opera.version();//opera对象获取版本的方法
+	}
+	return engine;
+}();//自执行
+
+
+
+console.log(dectect);
+
+</script>
+</html>	

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="关键词，关键字">
+	<meta name="Description" content="描述信息">
+	<title>title</title>
+
+	<!-- init style -->
+	<link rel="stylesheet" type="text/css" href="css/init.css">
+	<!-- customize style -->
+	<style type="text/css">
+		.content{width:10px;height:100px;border:1px solid green;}
+	</style>
+</head>
+<body>
+	<div id="test" class="content" style="width:600px;font-size:20px;float:left;">
+	</div>
+	<div style="clear:both;margin:0 auto;width:50%;">
+		<p>样式：行内、内联、外联</p>
+		<p>样式级别：行内 > 内联 > 外联</p>
+		<ol>
+			<li>行内样式:
+<pre>
+	//标签属性style，获取行内样式描述器CSSStyleDeclaration
+	var bq_test = document.getElementById("test");
+	var cssDeclaration= bq_test.style;//获取CSSStyleDeclaration
+	cssDeclaration.width;
+	cssDeclaration.fontSize;//_ 变驼峰
+	cssDeclaration.cssFloat||cssDeclaration.styleFloat;//兼容
+</pre>
+			</li>
+			<li>实际显示的样式（计算后样式）
+<pre>
+	var box  = document.getElementById("box");
+	var compStyle=window.getComputedStyle?window.getComputedStyle(box,null):null||box.currentStyle;
+	compStyle.fontFamily;
+</pre>
+			</li>
+			<li>外联样式
+<pre>
+	var link = document.getElementsByTagName("link")[0];
+	var sheet = link.sheet || link.styleSheet;//兼容
+
+	sheet属性、方法						说明
+	disabled						获取和设置样式表是否被禁用
+	href							如果是通过<link> 包含的，则样式表为URL ，否则为null
+	cssRules || rules 					样式表包含样式规则的集合
+	deleteRule(index) || removeRule(index)			删除cssRules 集合中指定位置的规则
+	insertRule(rule,index) || addRule(target,rule,index)	向cssRules 集合中指定位置插入rule 字符串
+
+	sheet.insertRule("body{background-color:red}",0);
+	sheet.addRule("body","background-color:red",0); 
+
+	rule属性方法						说明
+	cssText							获取当前整条规则对应的文本
+	selectorText						获取当前规则的选择符文本
+	style							返回CSSStyleDeclaration 对象，可以获取和设置样式
+</pre>		
+			</li>
+
+	</div>
+
+	<script type="text/javascript">
+		/*获取行内元素*/
+		var bq_test = document.getElementById("test");
+		var cssDeclaration= bq_test.style;//获取CSSStyleDeclaration
+		console.log(cssDeclaration.width);
+		console.log(cssDeclaration.fontSize);//_ 变驼峰
+		console.log(cssDeclaration.cssFloat||cssDeclaration.styleFloat);//兼容
+
+
+	</script>
+</body>
+</html>

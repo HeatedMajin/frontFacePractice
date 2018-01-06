@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>图片延迟加载</title>
+	<meta name="keywords" content="图片延迟加载" />
+	<meta name="description" content="" />
+
+	<!--css-->
+	<style type="text/css">
+		*{margin:0;padding: 0;border: 0 solid white;}
+		ol,ul,li { list-style:none; }
+
+		body{font-family: "微软雅黑";font-size: 12px;color: #666;}
+		/*top*/
+		.top{width: 1000px;height: 66px;margin: 10px auto;}
+		.top .qq {color: #666;font-weight: bold;float: right;line-height: 66px;font-size: 26px;}
+		.top .qq span{color:#ff5f25;font-size: 26px;}
+
+		/*body*/
+		.pic{width:906px;height:1000px;margin: 10px auto;}
+		.pic ul li {float: left;margin-right: 14px; margin-top:16px;display: block;
+			border-radius: 2px;box-shadow: 6px 2px 6px rgba(0,0,0,0.3)}
+		.pic ul li img{display: block;border-radius: 3px;}
+		.pic ul li img:hover{opacity:0.6;}
+		.pic ul li p{line-height: 28px;text-align: center;}
+	</style>
+
+	<!--引入jquery的官方类库-->
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<!--引入lazyload方法-->
+	<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+
+	<!--调用延时加载方法-->
+	<script type="text/javascript">
+		var Img = "images/lazyload.gif";
+		jQuery.noConflict()(function(){
+			jQuery.noConflict()("img").lazyload({placeholder:Img,effect:"fadeIn"});
+		});
+	</script>
+
+</head>
+    <body>
+    	<div class="top">
+    		<a href="#">
+    			<!-- img 的四个重要属性：src路径，alt描述（搜索引擎） width/height 宽高（加载时会优化）-->
+    			<img src="images/logo.png" alt="logo图片" width="215px" heigth="66px">
+			</a>
+			<div class="qq">
+				联系QQ:<span>1533363937</span>
+			</div>
+    	</div>
+    	<div class="pic">
+    		<ul>
+    			<li>
+    				<a href="#">
+    					<img src="images/1.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/2.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/3.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/4.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/5.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/6.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/7.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/8.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/9.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/10.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/11.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/12.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/13.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/14.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/15.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/16.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/17.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/18.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/19.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/20.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    			<li>
+    				<a href="#">
+    					<img src="images/21.jpg" alt="" width="288px" height="180px">
+    				</a>
+    				<p>绿丛小花精美摄影</p>
+    			</li>
+    		</ul>
+    	</div>
+    </body>
+</html>

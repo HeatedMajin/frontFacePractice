@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>轮播Banner</title>
+
+<!-- init style -->
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<style type="text/css">
+	.content{width:960px;height:480px;box-shadow:1px 1px 5px #666;margin:40px auto;
+		position:relative;
+	}
+	
+	.content ul.bg li{
+		width:100%;height:100%;filter:blur(5px);
+		position:absolute;
+	}
+	.content ul.bg li img{
+		display:block;
+		width:100%;height:100%;
+	}
+
+	.content ul.pic{
+		width:100%;height:100%;
+		display:flex;/*开启弹性和模型布局（默认主轴是x轴）*/
+		justify-content:center;/*主轴方向对齐模式：居中*/
+		align-items:center;/*辅轴方向对齐模式：居中*/
+	}
+	.content ul.pic li{
+		width:640px;height:360px;
+		position:absolute;
+	}
+
+	.content ul.pic li img{
+		display:block;
+		width:100%;height:100%;
+	}
+	
+	.content .buttons{
+		width:100%;height:100%;
+		left:0;top:0;
+		position:absolute;
+		display:flex;
+		align-items:center;
+		justify-content:space-between;	
+	}
+	.content .buttons span{
+		border-radius:2px;
+		background:rgba(0,0,0,.6);
+		display:block;
+		width:30px;height:70px;
+		color:#DDD;
+		font-size:40px;
+		text-align:center;
+		line-height:70px;
+		margin:0 4px;
+		opacity:.8;
+		cursor:pointer;
+	}
+	.content .buttons span.next{
+		float:right;
+	}
+	.content ul.labels{
+		position:absolute;
+		bottom:10px;
+		left:50%;
+		margin-left:-100px;
+		width:200px;
+		height:30px;
+		background:rgba(255,255,255,.6);
+		display:flex;
+		justify-content:space-around;
+		align-items:center;
+		border-radius:5px;
+	}
+	.content ul.labels li{
+		display:block;
+		width:20px;height:20px;
+		border-radius:50%;
+		background:rgba(0,0,0,.6);
+		float:left;
+		cursor:pointer;
+	}
+	.content ul.labels li.on{
+		background:#368;
+	}
+</style>
+</head>
+<body>
+    <div class="content">
+		<ul class="bg">
+			<li><img src="images/1.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/2.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/3.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/4.jpg" alt="1" width="1920px" height="1080px"/></li>
+		</ul>
+		<ul class="pic">
+			<li><img src="images/1.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/2.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/3.jpg" alt="1" width="1920px" height="1080px"/></li>
+			<li><img src="images/4.jpg" alt="1" width="1920px" height="1080px"/></li>
+		</ul>
+		<div class="buttons">
+			<span class="prev">&lt;</span>
+			<span class="next">&gt;</span>
+		</div>
+		<ul class="labels">
+			<li class="one on"></li>
+			<li class="two"></li>
+			<li class="three"></li>
+			<li class="four"></li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript">
+	var $prev = $(".buttons .prev");
+	var $next = $(".buttons .next");
+	var $bg_lis = $(".bg li");
+	var $pic_lis = $(".pic li");
+	var $label_lis = $(".labels li");
+	var index = 0;
+
+	var time = 0;
+	setInterval(autoPlay,1000);
+	play(index);
+
+	$prev.click(function(){
+		index = (4+index-1)%4;
+		play(index);
+	});
+	$next.click(function(){
+		index = (index+1)%4;
+		play(index);
+	});
+/*
+	for(var i = 0;i < 4;i ++){
+		alert(0);
+		$label_lis.eq(i).mouseover(function(){
+			index = i;
+			play(index);
+		});
+	}
+*/
+		$label_lis.eq(0).mouseover(function(){
+			index = 0;
+			play(index);
+		});
+
+		$label_lis.eq(1).mouseover(function(){
+			index = 1;
+			play(index);
+		});
+
+		$label_lis.eq(2).mouseover(function(){
+			index = 2;
+			play(index);
+		});
+
+		$label_lis.eq(3).mouseover(function(){
+			index = 3;
+			play(index);
+		});
+
+	function autoPlay(){
+		time++;
+		if(time > 2){
+			index = ( index + 1 ) % 4;
+			play(index);
+		}
+	}
+	function play(index){
+		$bg_lis.eq(index).fadeIn(300).siblings('li').fadeOut(300);
+		$pic_lis.eq(index).fadeIn(300).siblings('li').fadeOut(300);
+		$label_lis.eq(index).addClass("on").siblings('li').removeClass("on");
+		time = 0;
+	};
+	
+	</script>
+</body>
+
+</html>
+<!--
+	banner
+		图片集合
+			bg
+			pic
+		左右按钮
+			prev
+			next
+		labels
+			4*源点
+-->

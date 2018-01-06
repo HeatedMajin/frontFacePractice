@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+	<title>正则表达式的几个陌生地方</title>
+</head>
+<body></body>
+   
+<script type="text/javascript">
+
+//创建正则的两种方式
+//var partten = /box/;
+var partten = new RegExp("box");
+var str = "this is a box";
+document.write(partten.test(str));
+
+
+document.write("<br>");
+/////////////////////////////////////
+//贪婪匹配 & 惰性匹配
+partten = /8(.*)8/;
+str = "8google8 8google8 8google8 8google8 ";
+document.write(str.replace(partten,"<strong>$1</strong>"));
+
+
+document.write("<br>");
+
+partten = /8(.*?)8/g;
+str = "8google8 8google8 8google8 8google8";
+document.write(str.replace(partten,"<strong>$1</strong>"));
+
+
+document.write("<br>");
+document.write("<br>");
+document.write("非捕获性分组");
+document.write("<br>");
+//////////////////////////////////////////////
+//非捕获性分组
+partten = /(\d{2})(\w{2})/;
+str ="12as";
+a = partten.exec(str);
+document.write("捕获到的分组数"+a.length+":");
+document.write(RegExp.$0+";\t");
+document.write(RegExp.$1+";\t");
+document.write(RegExp.$2+";\t");
+
+document.write("<br>");
+
+partten = /(\d{2})(?:\w{2})/;
+str ="12as";
+a = partten.exec(str);
+document.write("捕获到的分组数"+a.length+":");
+document.write(RegExp.$0+";\t");
+document.write(RegExp.$1+";\t");
+
+document.write("<br>");
+////////////////////////////////////////////
+//前瞻捕获
+partten = /google/;
+str = "google";
+a = partten.exec(str);
+document.write(a[0]);
+
+document.write("<br>");
+
+partten = /goo(?=gle)/;
+str = "google";
+a = partten.exec(str);
+document.write(a[0]);
+
+document.write("<br>");
+//////////////////////////////////
+//去掉首尾空格
+document.write("去掉首尾空格<br>");
+partten = /^\s+(.*)\s+$/;
+str = "  go o gle  "
+document.write(str.replace(partten,"$1"));
+
+document.write("<br>");
+
+partten = /^\s+(.*)|(.*)\s+$/g;
+str = "  go o gle  ";
+document.write(str.replace(partten,"$1"));
+
+document.write("<br>");
+partten = /((?!.)\s+(?=[^\s]))|((?=[^\s])\s+(?!.))/g;
+str = "  go o gle  ";
+document.write(str.replace(partten,""));
+</script>
+
+</html>

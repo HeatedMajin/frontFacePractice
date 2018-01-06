@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>14.事件</title>
+    
+</head>
+<body>
+   
+    <!-- 引入D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+    <script type="text/javascript">
+        var svg =  d3.select("body").append("svg")
+            .attr("width",300)
+            .attr("height",300);
+
+        var circle = svg.append("circle")
+            .attr("cx",200)
+            .attr("cy",200)
+            .attr("r",50)
+            .attr("fill","steelblue");
+
+        circle.on("click",function(){
+            console.log(d3.event);
+        });
+    </script>
+</body>
+</html>

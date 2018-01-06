@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<title>视频弹出框</title>
+
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<style type="text/css">
+    /*global css*/
+	.content{width:1349px;height:1000px/* 764px */;background: url(images/img12.jpg);margin: 0 auto;}
+	
+    /*video*/
+	.content .video{width: 0px;height: 0px;border:6px solid #111;box-shadow: 0px 0px 27px #EEE;border-radius: 12px; 
+		display: none; position: absolute;z-index: 2;background: #000;position: relative;}
+    .content video {border-radius: 16px;margin: auto auto;display: block;}
+
+    /*word control*/
+    .content .controls{z-index: 2;color: white;font-size: 20px;}
+
+    /*cover*/
+    .content #cover{background:#000;opacity: 0.7;display: none;z-index:1;position: absolute;}
+
+    /*contorls groups*/
+    #controls_group .control{width: 32px;height:32px;background-image: url(images/icon.png);border-radius: 16px; 
+		cursor: pointer;margin:2px;}
+   
+    /*video title*/
+	#controls_group .top{position: absolute;left:0px;top:0px;opacity: 0.5;background:#000;}
+	#controls_group .top #title{font-size:24px;color:#CCC;padding:8px 10px 8px 15px;border-radius:12px;
+		line-height:30px;letter-spacing:1px;width:810px;}
+
+    /*center controls:start/pause*/
+    #controls_group .center{position: absolute;left:380px;top:240px;opacity: 0.25}
+	#controls_group .center:hover{opacity: 0.5;}
+    #play{background-position:-187px -139px;}
+    #pause{background-position: -350px -139px;display: none;}
+
+	/*bottom controls:prev stop next progressbar volume fullescreen*/
+	#controls_group .bottom{height:36px;width:824px;left:6px;top:441px;position: absolute;margin:0 auto;
+		opacity: 0.5;background:#000;padding:2px;}
+	#controls_group .bottom div{opacity:0.5;}
+	#controls_group .bottom div:hover{opacity:1;}
+	#prev{background-position: -350px -230px;float:left;}
+    #stop{background-position: -512px -138px;float:left;}
+	#next{background-position: -185px -230px;float:left;}
+	#volume{background-position:-512px -230px;float:right;}
+    #controls_group #fullscreen{background-image:url(images/fullscreen.png);background-position: -17px -14px;float:right;}
+
+	/*progress Bar*/
+	#controls_group .bottom #progress{height:22px;width:632px;float:left;margin-left:6px;margin-top:6px;color:#CCC;
+		background:#222;padding-top:6px;}
+	#controls_group .bottom #progress #bar{height:6px;width:470px;margin:6px 7px;float:left;background:#CCC;
+		border-radius:3px;}
+	#controls_group .bottom #progress #currentTime{float:left;margin-left:8px;}
+	#controls_group .bottom #progress #totalTime{float:right;margin-right:8px;}
+	
+	/*list*/
+	.content #video #list{background:#111;position:absolute;left:846px;top:-5px;display:none;width:200px;height:472px;
+		color:#EEE;padding:10px ;border-radius:12px;line-height:30px;letter-spacing:1px;box-shadow: 2px 2px 20px #EEE;}
+	.content #video #list .line{background:#000;height:2px;}
+	.content #video #list h3{font-size:18px;}
+
+	/*listBtn*/
+	.content #video #listBtn{width:16px;height:67px;background:url(images/list.png);position:absolute;left:824px;top:211px;
+		cursor:pointer;z-index:4;opacity: 0.8;}
+	.content #video #listBtn:hover{opacity: 1;}
+	
+</style>
+</head>
+<body>
+    	<div class="content">
+            <!-- controls start -->
+            <div class="controls">
+    		  <a href="#" id="open_video">打开视频</a>
+    		  <a href="#" id="close_video">关闭视频</a>
+            </div>
+            <!-- end controls -->
+
+            <!-- video start -->
+			<div class="video" id="video">
+				<video id="player" width="800px" height="490px" src="videos/1.mp4" onclick="clickStartPause();">您的播放器暂不支持播放</video>
+				<!-- listBtn-->
+				<div id="listBtn" onclick="listBtnClick();"></div>
+				<!--list start-->
+				<div id="list">
+					<ul>
+						<li><h3>目录</h3></li>
+						<li><div class="line"></div></li>
+						<li>&gt;&nbsp;<a href="#" onclick="changeVideo(0);">刚刚好 -- 薛之谦</a></li>
+						<li><div class="line"></div></li>
+						<li>&gt;&nbsp;<a href="#" onclick="changeVideo(1);">你还要我怎样 -- 薛之谦</a></li>
+						<li><div class="line"></div></li>
+						<li>&gt;&nbsp;<a href="#" onclick="changeVideo(2);">喜羊羊与灰他娘 -- 第二集</a></li>
+						<li><div class="line"></div></li>
+					</ul>
+				</div>
+				<!--end list-->
+                <div id="controls_group">
+					<div class="top">
+						<p id="title">刚刚好 -- 薛之谦</p>
+					</div>
+					<div class="center">
+	                    <div id="play" class="control"></div>   
+		                <div id="pause" class="control"></div>
+					</div>
+					<div class="bottom">
+						<div id="prev" class="control"></div>
+						<div id="stop" class="control"></div>
+						<div id="next" class="control"></div>
+						<div id="progress" class="control">
+							<p id="currentTime">00:00:00</p>
+							<div id="bar"></div>
+							<p id="totalTime">59:59:59</p>
+						</div>
+						<div id="fullscreen" class="control"></div>
+						<div id="volume" class="control"></div> 
+					</div>
+                </div>
+			</div>
+            <!-- end video -->
+			
+            <!--cover start-->
+            <div id="cover"></div>
+            <!-- end cover -->
+    	</div>
+
+		<!-- 引入JQ -->
+    	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+    	<script type="text/javascript">
+            var video = document.getElementById("player");            
+            var pauseBtn = document.getElementById("pause");
+            var startBtn = document.getElementById("play");
+
+            startBtn.onclick = clickStartPause;/*click start*/
+            pauseBtn.onclick =clickStartPause;/*click pause*/
+
+            var played =false;
+            function clickStartPause(){
+                if(!played){
+                    video.play();
+                    $("#pause").show();
+                    $("#play").hide();
+					
+                }else{
+                    video.pause();
+                    $("#play").show();
+                    $("#pause").hide();
+                }
+                played=!played;
+            }
+			
+			var nextBtn = document.getElementById("next");/*click next*/
+			var list=["videos/1.mp4","videos/2.mp4","videos/3.mp4"];
+			var index = 0;
+			nextBtn.onclick = function(){
+				index = (index+1)%3;
+				changeVideo(index);
+			}
+
+			var prevBtn = document.getElementById("prev");/*click prev*/
+			prevBtn.onclick = function(){
+				index = (3+index-1)%3;
+				changeVideo(index);
+			}
+            
+
+			function changeVideo(tar){
+				index=tar;
+				document.getElementById("player").src=list[index];
+				document.getElementById("title").innerText=document.getElementById("list").getElementsByTagName("a")[index].innerText;
+				played=false;
+				$("#play").show();
+                $("#pause").hide();
+			}
+			//var list = document.getElementById("list");
+			var listed= false;
+			function listBtnClick(){
+				if(!listed){
+					$("#list").show();
+
+					var lleft = ( $(window).width() - 1000 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").show().animate({
+    					width:"840px",
+    					height:"480px",
+    					left:"+"+lleft+"px",
+    					top:"+"+top+"px"
+    				},400);
+				}else{
+					$("#list").hide();
+
+					var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").show().animate({
+    					width:"840px",
+    					height:"480px",
+    					left:"+"+left+"px",
+    					top:"+"+top+"px"
+    				},400);
+					
+				}
+				listed = !listed;
+			}
+            
+        </script>
+        <script type="text/javascript">
+    		$(function () {
+    			// alert(0)
+    			$("#open_video").click(function(){
+                    $("#cover").show().animate({
+                        left:"0px",
+                        top:"30px",
+                        width: "1349px",
+                        height: "734px"
+                    },600);
+
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").show().animate({
+    					width:"840px",
+    					height:"480px",
+    					left:"+"+left+"px",
+    					top:"+"+top+"px"
+    				},700);
+    			});
+    			$("#close_video,#cover").click(function(){
+                    $("#cover").animate({
+                        left:"-0px",
+                        top:"30px",
+                        width: "0px",
+                        height: "0px"
+                    },700,function(){
+                        $(this).hide();
+                    });
+                
+    				var left = ( $(window).width() - 800 ) / 2;
+    				var top = ( $(window).height() - 480 ) / 2;
+    				$("#video").animate({
+    					width:"0px",
+    					height:"0px",
+    					left:"-"+0+"px",
+    					top:"+"+30+"px"
+    				},600,function(){
+                        $(this).hide();
+                        if(played){
+                            clickStartPause();
+                        }
+                    });
+    			});
+                
+    		})
+    	</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+		body{
+			width:100%;height:100%;
+			font-size:14px;
+			font-family:"微软雅黑";
+			color:#444;
+			background:rgba(100,220,120,.1);
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	var a = {name:"majin",age:20};
+	var name_ = a.name;	//从对象中取值赋给变量
+	var age_ = a.age;
+	console.log(name_+","+age_);
+////////////////////////////////////////
+	with(a){		//省略对象名
+		var _name = name;
+		var _age = age;
+	}
+	console.log(_name+","+_age);
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>title</title>
+</head>
+<body>
+	<script type="text/javascript">
+	/*获取浏览器的位置*/
+	var LeftX = typeof window.screenLeft=="number"?window.screenLeft:window.screenX;
+	var TopY = typeof window.screenTop =="number"?window.screenTop:window.screenY;
+	
+	/*获取浏览器的宽高*/
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	if (typeof width != "number")
+	{
+		if(document.compatMode=="document.compatMode"){//标准模式
+			width = document.documentElement.clientWidth;
+			height = document.documentElement.clientHeight;
+		}else{//怪异模式
+			width = document.body.clientWidth;
+			height = document.body.clientHeight;
+		}
+	}
+
+	
+	/*定时器*/
+	var index = 0;
+	var end =  5;
+	var t_id = null;
+	function time(){
+		index++;
+		document.write(index);
+		if(index == end){
+			alert("end");
+			clearTimeout(t_id);
+		}else{
+			t_id = console.log(time,1000);
+		}
+	}
+//	t_id = window.setTimeout(time,1000);
+
+
+	function time2(){
+		index++;
+		console.log(index);	
+		if (index==end)
+		{
+			window.clearInterval(t_id);
+		}
+	}
+	t_id = window.setInterval(time2,1000);
+
+	</script>
+</body>
+</html>

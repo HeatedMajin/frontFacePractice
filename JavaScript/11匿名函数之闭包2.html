@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>匿名函数之闭包</title>
+	</head>
+<body>
+</h3>
+<h1>
+<pre id="asd">
+	(函数)()		————自执行
+	(函数)			————函数表达式
+	var b = 函数()		————函数执行并赋值（省略了括函数的括号）
+	new (函数)		————使用函数表达式创建对象
+</pre>
+</h1>
+	<script>
+/*
+	//arr[0] = 0;arr[1]=1;arr[2]=2...
+	var arr = [];
+	for (var i = 0;i<5 ; i++)
+	{
+		arr[i] = function(){
+			return i;
+		}
+	}
+*/
+
+/*
+	var arr = [];
+	for(var i=0;i<5; i++)
+	{
+		arr[i] = (function(){
+			var temp = i;
+			return function(){
+				return temp;
+			};
+		})();//让匿名函数及时执行
+	}
+	for (var ind=0;ind <5 ;ind++ )
+	{
+		console.log(arr[ind]());
+	}
+*/
+
+
+/*
+	//this指向
+	//普通函数中的this都是指向window
+	//构造函数、对象方法中的this指向该对象
+	//demo1
+	var arr2 = (function(){
+		console.log(this);	//函数中的this
+		return function(){
+			console.log(this);	//函数中的this
+		};
+	})();
+	arr2();
+
+	//demo2
+	function Box(){
+		console.log(this);
+	}
+	var a = Box();//Box当函数执行，函数中this指向window
+	var b = new Box();//Box当构造函数，函数中this指向Box
+
+	//demo3
+	function Sox(){
+		return function Sex(){
+			console.log(this);	//函数中this
+		};
+	}
+	var ret_fun = Sox();
+	ret_fun();
+
+	//demo4
+	function Dox(){
+		return new (function Sex(){
+			console.log(this);//方法中的this
+		});//返回的是对象
+	}
+	b = Dox();
+*/
+/*
+	(函数)()		————自执行
+	(函数)			————函数表达式
+	var b = 函数()	————函数执行并赋值
+	new (函数)		————使用函数表达式创建对象
+*/
+
+//释放问题,dom中点击事件
+/*
+var pre = document.getElementById("asd");
+pre.onclick = function(){
+	console.log(pre.innerHTML);
+}
+pre = null;
+*/
+
+/*
+var pre = document.getElementById("asd");
+var text = pre.innerHTML;
+pre.onclick = function(){
+	console.log(text);
+};
+pre = null;
+*/
+
+</script>
+</body>
+</html>

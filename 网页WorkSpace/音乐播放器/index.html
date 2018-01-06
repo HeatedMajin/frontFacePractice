@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="关键词，关键字">
+	<meta name="Description" content="描述信息">
+	<title>音乐播放器</title>
+
+	<!-- init style -->
+	<link rel="stylesheet" type="text/css" href="css/init.css">
+	<!-- customize style -->
+	<style type="text/css">
+		.content{width:320px;height:610px;margin:10px auto;background:#121619;font-family:"微软雅黑";padding-bottom:5px;}
+
+		/* top */
+		.top .phoneMsg{width:100%;height:23px;background:url("images/1.png") no-repeat;}
+		.top .title{width:100%;height:30px;background:url("images/2.png") no-repeat;color:#FFF;font-size:22px;text-align: center;
+					font-weight: bold;line-height: 30px;letter-spacing: 2px;}
+		.top .singer{width:100%;height:30px;color:#FFF; font-size: 16px;text-align: center;line-height: 30px;}
+
+		/*play*/
+		#play{width:190px;height:190px;background:url("images/3.png") no-repeat;margin:0 auto;border-radius:50%;cursor:pointer;
+
+			}
+		.rotate{
+			animation:rot 10s linear infinite;
+		}
+		@keyframes rot{
+			from {transform:rotate(0deg);}
+			to {transform:rotate(360deg);}
+		}
+		/* ge ci */
+		#geci {
+			width:100%;height:320px;position:relative;overflow: hidden;margin-top:10px;
+		}
+		#panel{width:100%;height:320px;text-align:center;color: #EEE;line-height: 22px;font-size: 14px;margin: 10px 0;letter-spacing:0.5px;position:absolute;top:0;}
+
+
+
+		.current{color:red; font-size:17px;letter-spacing:1px;font-weight:bold;}
+	</style>
+</head>
+<body>
+
+	<div class="content">
+		<div class="top">
+			<div class="phoneMsg"></div>
+			<div class="title">小幸运</div>
+			<div class="singer">谭嘉怡</div>
+		</div>
+		<div id="play">
+			<audio id="player" src="music/谭嘉仪-小幸运.mp3"></audio>
+		</div>
+		<div id="geci">
+			<div id="panel"></div>
+		</div>
+	</div>
+	<textarea style="display:none;" id="hidden_geci">
+		[ver:v1.0]
+		[ti:2]
+		[00:00.64]小幸运 - 谭嘉仪
+		[00:02.15]词：徐世珍&吴辉福
+		[00:03.70]曲：JerryC
+		[00:04.14]编曲：JerryC
+		[00:13.77]我听见雨滴落在青青草地
+		[00:19.89]我听见远方下课钟声响起
+		[00:25.74]可是我没有听见你的声音
+		[00:30.74]认真 呼唤我姓名
+		[00:37.92]爱上你的时候还不懂感情
+		[00:44.12]离别了才觉得刻骨 铭心
+		[00:50.09]为什么没有发现遇见了你
+		[00:54.70]是生命最好的事情
+		[01:00.30]也许当时忙着微笑和哭泣
+		[01:06.36]忙着追逐天空中的流星
+		[01:12.12]人理所当然的忘记
+		[01:16.55]是谁风里雨里一直默默守护在原地
+		[01:24.44]原来你是我最想留住的幸运
+		[01:29.69]原来我们和爱情曾经靠得那么近
+		[01:35.67]那为我对抗世界的决定
+		[01:40.29]那陪我淋的雨
+		[01:43.28]一幕幕都是你 一尘不染的真心
+		[01:50.60]与你相遇 好幸运
+		[01:53.96]可我已失去为你泪流满面的权利
+		[01:59.98]但愿在我看不到的天际
+		[02:04.63]你张开了双翼
+		[02:07.68]遇见你的注定 她会有多幸运
+		[02:27.28]青春是段跌跌撞撞的旅行
+		[02:33.44]拥有着后知后觉的美丽
+		[02:39.55]来不及感谢是你给我勇气
+		[02:44.22]让我能做回我自己
+		[02:49.72]也许当时忙着微笑和哭泣
+		[02:55.55]忙着追逐天空中的流星
+		[03:01.61]人理所当然的忘记
+		[03:06.03]是谁风里雨里一直默默守护在原地
+		[03:13.79]原来你是我最想留住的幸运
+		[03:19.05]原来我们和爱情曾经靠得那么近
+		[03:25.17]那为我对抗世界的决定
+		[03:29.68]那陪我淋的雨
+		[03:32.56]一幕幕都是你 一尘不染的真心
+		[03:39.89]与你相遇 好幸运
+		[03:43.40]可我已失去为你泪流满面的权利
+		[03:49.32]但愿在我看不到的天际
+		[03:53.97]你张开了双翼
+		[03:56.98]遇见你的注定
+		[04:00.47]Oh 她会有多幸运
+	</textarea>
+	<script type="text/javascript">
+		//处理播放事件
+		var play_btn =  document.getElementById("play");//播放按钮
+		var player = document.getElementById("player");//H5音频播放器
+		var played = false;//记录当前的播放状态
+		play_btn.onclick = function(){
+			if(played){
+				player.pause();
+				this.className="";
+			}else{
+				player.play();
+				this.className="rotate";
+			}
+			played = !played;
+		};
+
+		//歌词显示
+			/*
+			[ver:v1.0]
+			[ti:2]
+			[00:00.64]小幸运 - 谭嘉仪
+			[00:02.15]词：徐世珍&吴辉福
+			*/
+		var partten = /(\d{2}):(\d{2})\.\d{2}\](.*)/;//[+两个数字+:+两个数字+.+两个数字+]+任意长的歌词
+		var lines = document.getElementById("hidden_geci").value.split("[");//lrc文件中的内容分行处理
+
+		var html = "";
+		for(var line = 0; line <lines.length;++line ){
+			var a = lines[line].match(partten);
+			if(a&&a.length == 4){
+				/*
+				sec = a[1]*60+a[2]*1;//时间
+				tex = a[3];//歌词
+				*/
+				html+="<p id="+(a[1]*60+a[2]*1)+">"+a[3]+"</p>";
+			}
+		}
+		
+		var panel = document.getElementById("panel");//歌词的显示面板
+		panel.innerHTML = html;	//添加歌词
+
+
+		
+		//歌词同步
+//		var ps = panel.getElementByTags("p");//获取面板下所有的p标签(每行歌词)
+
+		player.addEventListener("timeupdate",function(){
+//			console.log(player.currentTime);//播放的时间
+			var playSec = parseInt(player.currentTime);
+
+
+			var tag = document.getElementById(playSec);//根据当前的播放秒数，找到当前要变红的P标签
+
+//			var num = 0;
+			if (tag)
+			{
+				//所有的标签置白
+				var ps = panel.getElementsByTagName("p");
+				for(var index= 0;index<ps.length;index++){
+
+					if(ps[index].className=="current"){
+						if(index > 6){
+							panel.style.top = "-"+((index-7)*22)+"px";
+						}
+						ps[index].className ="";
+						break;
+					}
+					
+				}
+				//当前播放的置红
+				tag.className="current";
+
+				
+			}
+
+		});
+	</script>
+</body>
+</html>

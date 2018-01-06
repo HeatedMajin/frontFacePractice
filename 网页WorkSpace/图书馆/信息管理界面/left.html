@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/init.css">
+
+        <style type="text/css">
+            body{
+                margin:0;
+                padding:0;
+                background-color:#E6E6E6;
+                font-size:14px;
+                font-family:"微软雅黑";
+            }
+            #container{
+                
+               
+            }
+
+            .group{
+                background-color:white; 
+                border-radius:6px 6px 6px 6px;
+                padding:2px;
+                margin:8px;
+            }
+
+            .title{
+                padding:4px;
+            }
+
+            .title div a{
+                text-decoration:none;
+            }
+            .title div a:hover{
+                text-decoration:underline;
+                font-size:15px;
+            }
+            .title #userlogo{
+                  width:27px;
+                  height:27px;
+                  background:url(images/userlogo.png) no-repeat;
+                  float:left;
+            }
+            .content{
+                margin-left:30px;
+                margin-top:3px;
+            }
+            .content li{
+                margin-bottom:6px;
+            }
+            .content li a{
+                font-size:12px;
+                text-decoration:none;
+            }
+            .content li a:hover{
+                text-decoration:underline;
+                font-size:13px;
+            }
+        </style>
+
+        <script>
+            function hiddenDiv(div){
+                div.style.display = (div.style.display=='none'?'block':'none');
+            }
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <div id="one" class="group">
+                <div class="title">
+                    <div id="userlogo"></div>
+                    <div>
+                        <a href="javascript:void(0)" onclick="hiddenDiv(document.getElementById('c1'))">个人信息</a>
+                    </div>
+                </div>
+                <div class="content" id="c1">
+                    <li><a href="#">学籍信息</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">联系方式</a></li>
+                </div>
+            </div>
+
+             <div id="two" class="group">
+                <div class="title">
+                    <div id="userlogo"></div>
+                    <div>
+                        <a href="javascript:void(0)" onclick="hiddenDiv(document.getElementById('c2'))">个人信息</a>
+                    </div>
+                </div>
+                <div class="content" id="c2">
+                    <li><a href="#">学籍信息</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">联系方式</a></li>
+                </div>
+            </div>
+
+             <div id="three" class="group">
+                <div class="title">
+                    <div id="userlogo"></div>
+                    <div>
+                        <a href="javascript:void(0)" onclick="hiddenDiv(document.getElementById('c3'))">个人信息</a>
+                    </div>
+                </div>
+                <div class="content" id="c3">
+                    <li><a href="#">学籍信息</a></li>
+                    <li><a href="#">联系方式</a></li>
+                    <li><a href="#">联系方式</a></li>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

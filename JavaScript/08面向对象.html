@@ -1,0 +1,49 @@
+<html>
+	<head>
+		<title>面向对象</title>
+	</head>
+<body></body>
+<script type="text/javascript">
+	//创建对象的方法
+	var obj1 = new Object();	//创建对象
+	obj1.name = "majin";		//赋予对象属性
+	obj1.age = 20;
+	obj1.run = function(){		//赋予对象方法
+		console.log(this.name+this.age+" is running");
+	}
+	obj1.run();	//调用对象方法
+
+	//工厂方法创建对象
+	function create(name,age){
+		var obj = new Object();
+		obj.name = name;
+		obj.age = age;
+		obj.run = function(){
+			console.log(obj.name+obj.age+" is running");
+		}
+		return obj;
+	}
+	var objc1 = create("majin",20);
+	var objc2 = create("kkk",21);
+	objc1.run();
+	objc2.run();
+
+	//构造方法创建对象
+	function constructor(name,age){
+		this.name = name;
+		this.age = age;
+		this.run = function(){
+			console.log(this.name+this.age+" is running");
+		}
+	}
+	var objo1 = new constructor("as",321);
+	objo1.run();
+	console.log(objo1 instanceof constructor);
+
+	var objo2 = new constructor("as",321);
+	console.log(objo1.name == objo2.name);
+	console.log(objo1.age == objo2.age);
+	console.log(objo1.run == objo2.run);	//函数是引用类型
+	
+</script>
+</html>

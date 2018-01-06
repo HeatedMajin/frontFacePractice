@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>鼠标事件</title>
+
+    <!-- customize style -->
+    <style type="text/css">
+        .content{width:100px;height:100px;border:1px solid green;}
+    </style>
+</head>
+<body>
+    <div class="content" id="test">
+    </div>
+    <script type="text/javascript">
+        var test = document.getElementById("test");
+        test.onclick = function(e){
+//            console.log(e);
+        }
+        document.oncontextmenu = function(e){
+            return false;
+        }
+        test.onmousedown = function(e){
+            var e= e ||window.event;
+            var cx = e.clientX;
+            var cy = e.clientY;
+            console.log("clientX:"+cx+",clientY:"+cy);
+            var sx = e.screenX;
+            var sy = e.screenY;
+            console.log("screenX:"+sx+",screenY:"+sy);
+            switch(e.button){              
+                case 0:
+                    console.log("左键按下");
+                    break;
+                case 1:
+                    console.log("中键按下");                   
+                    break;
+                case 2:
+                    console.log("右键按下");
+                    break;
+            }
+            return true;
+        }
+        test.onmouseup = function(e){
+             var e= e ||window.event;
+             switch(e.button){              
+                case 0:
+                    console.log("左键抬起");
+                    break;
+                case 1:
+                    console.log("中键抬起");                   
+                    break;
+                case 2:
+                    console.log("右键抬起");
+                    break;
+            }
+        }
+        //e可以获取keycode
+        document.onkeydown=function(e){
+            var keys=[];
+            console.log(e);
+            if(e.shiftKey)keys.push("shift");
+            else if(e.ctrlKey)keys.push("ctrl");
+            else if(e.altKey)keys.push("alt");
+            console.log(keys);
+        }
+        //e可以获取charcode、keycode，但和上面的keycode不太一样
+        document.onkeypress = function(e){
+            console.log(e);
+        }
+    </script>
+</body>
+</html>

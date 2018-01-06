@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>8.自定坐标轴</title>
+    <style type="text/css">
+    .axis path,
+    .axis line{
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+     
+    .axis text {
+        font-family: sans-serif;
+        font-size: 11px;
+    }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>需要用到比例尺</li>
+    </ul>
+    <!-- 引入D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+    <script type="text/javascript">
+        var arr = [12,32,21,34,19];
+        var svgWidth = 300;
+        var svgHeight = 300;
+
+
+        var linear = d3.scale.linear()  //创建比例尺
+            .domain([0,d3.max(arr)])    //指定原domain
+            .range([0,300]);            //指定目range
+
+
+        var svg = d3.select("body")
+            .append("svg")
+            .attr("width",svgWidth)
+            .attr("height",svgHeight);
+        
+
+
+        var rectHeight = 25;
+     
+
+        svg.selectAll("rect")
+            .data(arr)
+            .enter()
+            .append("rect")
+            .attr("x",20)
+            .attr("y",function(d,i){
+                return i * rectHeight;
+            })
+            .attr("width",function(d,i){
+                return linear(d);
+            })
+            .attr("height" , rectHeight-2)
+            .attr("fill","steelblue");
+
+
+        //创建坐标轴
+        var axis = d3.svg.axis()
+            .scale(linear)              //指定比例尺
+            .orient("bottom")           //刻度的朝向
+            .ticks(8);                  //刻度的个数
+
+        //添加坐标轴
+        svg.append("g")
+            .attr("class","axis")
+            .attr("transform","translate(20,130)")
+            .call(axis);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>6.比例尺</title>
+</head>
+<body>
+    <!-- 引入D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+    <script type="text/javascript">
+//线性比例尺
+
+    //将数组均匀映射到[0,300]上
+    var arr=[1.2,0.2,3.4,1.5,0.6];
+    var min = d3.min(arr);
+    var max = d3.max(arr);
+
+
+    var linear = d3.scale.linear()
+        .domain([min,max])
+        .range([0,300]);
+
+    console.log(linear(arr[1]));
+    console.log(linear(arr[2]));
+    console.log(linear(arr[3]));
+
+//序数比例尺
+    var index = [1,2,3,4,5];
+    var color = ["red","blue","yellow","orange","black"];
+
+    var map = d3.scale.ordinal()
+        .domain(index)
+        .range(color);
+    console.log(map(index[0]));
+    console.log(map(index[1]));
+    console.log(map(index[2]));
+
+    </script>
+</body>
+</html>

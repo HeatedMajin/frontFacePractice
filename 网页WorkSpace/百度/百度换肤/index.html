@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>百度换肤技术</title>
+
+<!-- init style -->
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<style type="text/css">
+	.content{width:100%;height:770px;background:url("image/1.jpg") no-repeat;position:relative;position:relative;}
+	.content #btn{font-size:28px;font-family:"微软雅黑";padding:40px;line-height:60px;}
+
+	#header{background:#111;width:100%;height:0;position:absolute;left:0;top:0;display:none;}
+	#header #top{height:220px;width:100%;padding:10px 0;}
+	#top .left {width:700px;margin:0 auto;}
+	#top .left .leftSub{width:264px;height:200px;float:left;margin:3px;}
+	#top .left .leftSub .leftBig{width:172px;height:134px;float:left;margin:1px;}
+	#top .left .leftSub .leftSmall{width:84px;height:65px;float:left;margin:1px;}
+	#top .left li{border:1px solid #000;}
+	#top .left li:hover{border:1px solid #FFF;}
+	#top .left .recent{width:154px;float:left;margin:3px;}
+	#top .left .recent li{width:152px;height:100px;float:left;margin:1px;}
+	#header #cover{width:100%;height:460px;}
+</style>
+</head>
+<body>
+    <div class="content">
+		<a id="btn" href="javascript:void(0);">换肤</a>
+		<div id="header">
+			<!-- top start-->
+			<div id="top">
+				<!-- left start-->
+				<div class="left">	
+					<!-- left small image -->
+					<ul class="leftSub">
+						<li class="leftBig">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/1.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/2.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/3.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/4.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/5.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/6.jpg" alt="七龙珠"></a>
+						</li>
+					</ul>
+					<!-- right small image -->
+					<ul class="leftSub">
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/7.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/8.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/9.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftBig">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/10.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/11.jpg" alt="七龙珠"></a>
+						</li>
+						<li class="leftSmall">
+							<a href="javascript:void(0);"><img width="100%" height="100%;" src="image/12.jpg" alt="七龙珠"></a>
+						</li>
+					</ul>
+					<!-- recent -->
+					<ul class="recent">
+						<li><a href="javascript:void(0);"><img width="100%" height="100%;" src="image/13.jpg" alt="七龙珠"></a></li>
+						<li><a href="javascript:void(0);"><img width="100%" height="100%;" src="image/14.jpg" alt="七龙珠"></a></li>
+					</ul>
+				</div>
+				<!-- end left -->
+			</div>
+			<!-- end top -->
+			<!-- cover start-->
+			<div id="cover"></div>
+			<!-- end cover -->
+		</div>
+		<!--header-->
+	</div>
+
+	<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var btn = document.getElementById("btn");//开关
+			var header = document.getElementById("header");//选项框
+			var cover = document.getElementById("cover");//遮罩
+
+			btn.onclick = showHeader;
+			cover.onclick = hideHeader;
+			function showHeader(){
+				$("#header").show().animate({
+					height:"240px"
+				},600);
+			}
+			function hideHeader(){
+				$("#header").animate({
+					height:"0"
+				},500,function(){
+					header.style.display = "none";
+				})
+			}
+
+			$("#top").find("a").click(function(){
+				//更换背景
+				var imgSrc = $(this).find("img").attr("src");
+				$(".content").css("background-image","url("+imgSrc+")");
+				//保存选中的图片
+				sessionStorage.setItem("imgSrc",imgSrc);
+
+			});
+			var storagedSrc = sessionStorage.getItem("imgSrc");
+			if(!storagedSrc){
+				storagedSrc = "image/12.jpg";
+			}
+			$(".content").css("background-image","url("+storagedSrc+")");
+		}
+	</script>
+</body>
+</html>

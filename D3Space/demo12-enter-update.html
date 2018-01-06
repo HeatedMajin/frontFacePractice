@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords" content="关键词，关键字">
+    <meta name="Description" content="描述信息">
+    <title>11.理解update、enter、eixt</title>
+    
+</head>
+<body>
+    <ul>
+        <li>update是对起来的部分</li>
+        <li>enter是数组多出来、添加上的部分</li>
+        <li>exit是标签多出来、未附上的部分</li>
+    </ul>
+
+    <h3>update和enter</h3>
+    <div id="p1">
+        <p>a</p>
+        <p>a</p>
+        <p>a</p>
+    </div>
+    <h3>exit</h3>
+    <div id="p2">
+        <p>a</p>
+        <p>a</p>
+        <p>a</p>
+    </div>
+    <!-- 引入D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+    <script type="text/javascript">
+        var dataset = [1,2,3,4,5]
+
+        //获取所有的p标签
+        var p = d3.select("body").select("#p1").selectAll("p");
+        //获取update部分
+        var update = p.data(dataset);
+        //获取enter部分
+        var enter = update.enter();
+
+        update.text(function(d,i){
+            return "update 部分的内容是 "+ d;
+        });
+
+        enter.append("p")
+            .text(function(d,i){
+                return "enter 的部分的内容是" +d;
+
+            });
+        
+
+        var dataset2 = [1,2];
+        var  p2  = d3.select("body").select("#p2").selectAll("p");
+        var update = p2.data(dataset2);
+        update.text(function(d,i){
+            return d;
+        });
+        var exit = update.exit();
+        exit.remove();
+    </script>
+</body>
+</html>

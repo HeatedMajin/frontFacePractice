@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="Keywords" content="关键词，关键字">
+<meta name="Description" content="描述信息">
+<title>自定义弹出框</title>
+<!-- init style -->
+<link rel="stylesheet" type="text/css" href="css/init.css">
+<link rel="stylesheet" type="text/css" href="css/majinDialog.css">
+<link rel="stylesheet" href="css/animate.css">
+<style type="text/css">
+	#content a{
+		letter-spacing:1px;
+		font-size:16px;
+		display:block;
+		width:150px;
+		height:32px;
+		background:#7799DD;
+		color:#FFF;
+		line-height:32px;
+		border-radius:10px;
+		padding:0 8px;
+		text-align:center;
+		margin:100px auto;
+	}
+</style>
+</head>
+<body>
+	<div id="content">
+		<a href="javascript:;" id="testBtn">自定义消息框组件</a>
+	</div>
+</body>
+<!-- 引入JQ -->
+<script type="text/javascript" src="js/jquery-1.4.3.min.js"></script>
+<!--引入自定义组件-->
+<script type="text/javascript" src="js/majinDialog.js"></script>
+<!-- js -->
+<script type="text/javascript">
+	$("#testBtn").click(function(){$.dialog({
+		title:"你好",
+		content:"你确定要离开吗？",
+		callback:function(flag){
+			if(flag){
+				console.log("确定");
+			}else{
+				console.log("取消");
+			}
+		}
+	})})
+</script>
+
+</html>
